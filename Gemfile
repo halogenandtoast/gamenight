@@ -17,6 +17,7 @@ gem 'normalize-rails', '~> 2.1.3'
 gem 'bitters'
 gem 'font-awesome-rails', '~> 4.0.3.1'
 gem 'flipper'
+gem 'rails_12factor'
 
 group :development do
   gem 'better_errors'
