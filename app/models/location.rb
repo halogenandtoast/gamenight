@@ -106,6 +106,6 @@ class Location < ActiveRecord::Base
   end
 
   def next_date
-    schedule.next_occurrence
+    schedule.occurs_at?(Date.today) ? Date.today : schedule.next_occurrence
   end
 end

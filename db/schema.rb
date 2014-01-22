@@ -16,16 +16,6 @@ ActiveRecord::Schema.define(version: 20140107045421) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "assignments", force: true do |t|
-    t.integer  "game_copy_id"
-    t.integer  "location_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "assignments", ["game_copy_id"], name: "index_assignments_on_game_copy_id", using: :btree
-  add_index "assignments", ["location_id"], name: "index_assignments_on_location_id", using: :btree
-
   create_table "boxed_games", force: true do |t|
     t.integer  "box_id"
     t.integer  "game_id"
@@ -47,18 +37,6 @@ ActiveRecord::Schema.define(version: 20140107045421) do
 
   add_index "boxes", ["location_id"], name: "index_boxes_on_location_id", using: :btree
   add_index "boxes", ["owner_id", "owner_type"], name: "index_boxes_on_owner_id_and_owner_type", using: :btree
-
-  create_table "game_copies", force: true do |t|
-    t.integer  "game_id"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "location_id"
-  end
-
-  add_index "game_copies", ["game_id"], name: "index_game_copies_on_game_id", using: :btree
-  add_index "game_copies", ["location_id"], name: "index_game_copies_on_location_id", using: :btree
-  add_index "game_copies", ["user_id"], name: "index_game_copies_on_user_id", using: :btree
 
   create_table "games", force: true do |t|
     t.string   "title"
