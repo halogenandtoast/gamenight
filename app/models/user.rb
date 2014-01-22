@@ -1,0 +1,32 @@
+class User < ActiveRecord::Base
+  has_many :boxes, as: :owner, dependent: :destroy
+  has_many :group_memberships, dependent: :destroy
+  has_many :knows, dependent: :destroy
+  has_many :rsvps, dependent: :destroy
+  has_many :invitations, dependent: :destroy
+
+  has_many :groups, through: :group_memberships
+  has_many :locations, through: :groups
+  has_many :known_games, through: :knows, source: :game, class_name: "Game"
+
+  def add_game game
+    boxes.create(title: game.title, game_ids: [game.id])
+  end
+
+  def owns? box
+    box.owner_type == 'User' && box.owner_id == id
+  end
+
+  def knows? game
+    knows.where(game_id: game.id).exists?
+  end
+
+  def attending? group
+    rsvp = rsvps.find_by(group_id: group.id)
+    rsvp && rsvp.date == group.next_date.to_date
+  end
+
+  def inspect
+    email
+  end
+end

@@ -1,0 +1,9 @@
+<%= div_for(game) do %>
+  <%= image_tag(game.image, width: 200) %>
+  <ul>
+    <li><%= number_of_players(game) %></li>
+    <li><%= pluralize(game.playing_time, "minute") %></li>
+    <li><%= pluralize(game.suggested_players, "suggested player") %></li>
+  </ul>
+  <%= know_button(game) %>
+<% end %>

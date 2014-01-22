@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Gamenight</title>
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <header class="main">
+      <% if signed_in? %>
+        <nav>
+          <ul>
+            <li><%= link_to "Dashboard", root_path %></li>
+          </ul>
+        </nav>
+        <nav class="right">
+          <ul>
+            <li><%= link_to "Sign out", session_path, method: :delete %></li>
+          </ul>
+        </nav>
+      <% else %>
+        <nav>
+          <ul>
+            <li><%= link_to "Sign up", new_user_path %></li>
+          </ul>
+        </nav>
+      <% end %>
+    </header>
+
+    <div class='container'>
+      <%= yield %>
+    </div>
+  </body>
+</html>

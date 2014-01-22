@@ -1,0 +1,6 @@
+<%= form_for([@group, @invitation]) do |form| %>
+  <%= form.fields_for(:user) do |user_form| %>
+    <%= user_form.email_field :email, placeholder: "Email address" %>
+  <% end %>
+  <%= form.submit "Invite" %>
+<% end %>

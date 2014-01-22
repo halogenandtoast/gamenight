@@ -1,0 +1,10 @@
+<%= div_for(box) do %>
+  <%= render box.game %>
+  <%= form_for box, url: box_assignment_path(box), method: :patch do |form| %>
+    <%= form.select :location_id, current_user.locations.map { |location| [location.title, location.id] }, include_blank: true %>
+    <%= form.submit "Update" %>
+  <% end %>
+  <% box.games.drop(1).each do |game| %>
+    <%= image_tag(game.image, width: 200) %>
+  <% end %>
+<% end %>

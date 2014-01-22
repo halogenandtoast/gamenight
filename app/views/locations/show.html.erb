@@ -1,0 +1,67 @@
+<header>
+  <h1><%= @location.title %></h1>
+  <%= link_to @location.group.title, @location.group %>
+  <% if @location.has_next_date? %>
+    <div>Next Game Night: <%= @location.next_date.strftime("%B %d") %></div>
+  <% end %>
+
+</header>
+
+<section>
+  <%= form_for(@location) do |form| %>
+    <div>
+      <%= form.label :starts_on %>
+      <%= form.date_field :starts_on %>
+    </div>
+    <div>
+      <%= form.label :recurrence_rules, "When" %>
+      <%= form.select_recurring :recurrence_rules %>
+    </div>
+    <%= form.submit %>
+  <% end %>
+</section>
+
+<% if $flipper[:libary].enabled? %>
+  <section>
+
+    <header>
+      <h1>Games</h1>
+      <%= link_to 'Add game', new_location_game_path(@location) %>
+    </header>
+
+    <div class="games">
+      <% if @location.boxes.any? %>
+        <% @location.boxes.includes(:games).each do |box| %>
+          <%= div_for(box, data: { title: box.title, href: my_box_path(box), id: box.id }) do %>
+            <%= link_to image_tag(box.image, width: 200), my_box_path(box) %>
+            <%= know_button(box.game) %>
+
+            <% if current_user.owns? box %>
+              <%= form_for box, url: box_assignment_path(box), namespace: box.title.parameterize, remote: true, method: :patch do |form| %>
+                <%= form.label :location_id, "at" %>
+                <%= form.select :location_id, current_user.locations.map { |location| [location.title, location.id] }, { include_blank: true }, { class: 'box-location-field' } %>
+              <% end %>
+            <% end %>
+            <ul class="box-contents">
+              <% box.games.each do |game| %>
+                <li>and <%= game.title %></li>
+              <% end %>
+            </ul>
+            <% if @location.owns? box %>
+              <%= link_to "Remove", [:my, box], method: :delete, class: 'remove', data: { confirm: "Are you sure?" } %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% else %>
+        No games yet.
+      <% end %>
+    </div>
+  </section>
+<% end %>
+
+<script type="text/javascript">
+  $(".box-location-field").on("change", function() {
+    $(this.form).trigger("submit")
+    window.location = window.location
+  });
+</script>

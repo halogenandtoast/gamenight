@@ -1,0 +1,27 @@
+<div id="dashboard">
+
+  <section>
+    <header class='title'>
+      <h1><%= @user.name %>'s Games</h1>
+    </header>
+
+    <div class="games">
+      <% if @user.boxes.any? %>
+        <% @user.boxes.each do |box| %>
+          <%= div_for(box, data: { title: box.title, href: my_box_path(box), id: box.id }) do %>
+            <%= link_to image_tag(box.image, width: 200), my_box_path(box) %>
+
+            <ul class="box-contents">
+              <% box.games.each do |game| %>
+                <li><%= game.title %></li>
+              <% end %>
+            </ul>
+
+          <% end %>
+        <% end %>
+      <% else %>
+        No games yet.
+      <% end %>
+    </div>
+  </section>
+</div>

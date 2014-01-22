@@ -1,0 +1,28 @@
+<%= form_for @game do |form| %>
+  <%= form.label :title %>
+  <%= form.text_field :title %>
+  <%= form.hidden_field :id %>
+  <% if params[:location_id] %>
+    <%= hidden_field_tag :location_id, params[:location_id] %>
+  <% end %>
+  <%= form.submit 'Add' %>
+<% end %>
+
+<script type="text/javascript">
+  $("#game_title").autocomplete({
+    source: '/search/games',
+    select: function( event, ui ) {
+      $("#game_id").val(ui.item.id);
+      $("#game_title").val(ui.item.title);
+      return false;
+    }
+  }).data('ui-autocomplete')._renderItem = function(ul, item) {
+    year_string = "";
+    if(item.year) {
+      year_string = " (" + item.year + ")"
+    }
+    return $("<li>").
+      append("<a>" + item.title + year_string + "</a>").
+      appendTo(ul);
+  }
+</script>

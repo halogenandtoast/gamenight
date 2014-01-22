@@ -1,0 +1,20 @@
+<% if @invitation.user.status == 'active' %>
+  <%= link_to 'Accept', @invitation, method: :patch %>
+  <%= link_to 'Decline', @invitation, method: :delete %>
+<% else %>
+  You've been invited!
+  <%= form_for(@invitation) do |form| %>
+    <%= form.fields_for(@invitation.user) do |fields| %>
+      <div>
+        <%= fields.text_field :name, placeholder: 'your name' %>
+      </div>
+      <div>
+        <%= fields.email_field :email, placeholder: 'email' %>
+      </div>
+      <div>
+        <%= fields.password_field :password %>
+      </div>
+    <% end %>
+    <%= form.submit "Join Gamenight.io" %>
+  <% end %>
+<% end %>

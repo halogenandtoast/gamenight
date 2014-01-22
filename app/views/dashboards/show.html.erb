@@ -1,0 +1,80 @@
+<div id="dashboard">
+
+  <section>
+    <header class='title'>
+      <h1>My Groups</h1>
+      <%= link_to "Add group", new_group_path, class: 'add-link' %>
+    </header>
+
+    <div id="groups">
+      <% current_user.groups.each do |group| %>
+        <%= div_for(group) do %>
+          <%= link_to group.title, group, class: 'group-link' %>
+        <% end %>
+      <% end %>
+    </div>
+  </section>
+
+  <% if $flipper[:library].enabled? %>
+    <section>
+      <header class='title'>
+        <h1>My Games</h1>
+        <%= link_to "Add game", new_game_path, class: 'add-link' %>
+      </header>
+
+      <div class="games">
+        <% if current_user.boxes.any? %>
+          <% current_user.boxes.includes(:games).each do |box| %>
+            <%= div_for(box, data: { title: box.title, href: my_box_path(box), id: box.id }) do %>
+              <%= link_to image_tag(box.image, width: 200), my_box_path(box) %>
+
+              <%= form_for box, url: box_assignment_path(box), namespace: box.title.parameterize, remote: true, method: :patch do |form| %>
+                <%= form.label :location_id, "at" %>
+                <%= form.select :location_id, current_user.locations.map { |location| [location.title, location.id] }, { include_blank: true }, { class: 'box-location-field' } %>
+              <% end %>
+              <ul class="box-contents">
+                <% box.games.drop(1).each do |game| %>
+                  <li><%= game.title %></li>
+                <% end %>
+              </ul>
+
+              <%= know_button(box.game) %>
+
+              <%= link_to "Remove", [:my, box], method: :delete, class: "remove", data: { confirm: "Are you sure?" } %>
+            <% end %>
+          <% end %>
+        <% else %>
+          No games yet.
+        <% end %>
+      </div>
+    </section>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  $(".box-location-field").on("change", function() {
+    $(this.form).trigger("submit")
+  });
+
+  $(".box").draggable({
+    revert: "invalid",
+    opacity: 0.7,
+    handle: "img",
+    helper: function( event ) {
+      return $(event.target).clone();
+    }
+  });
+
+  $(".box").droppable({
+    tolerance: "pointer",
+    drop: function(event, ui) {
+      var self = this;
+      $.post($(this).data("href") + "/merge.json", { box_id: ui.draggable.data("id") }, function(data) {
+        ui.draggable.remove();
+        li = $("<li>")
+        li.append(ui.draggable.data("title"));
+        $(self).find(".box-contents").append(li)
+      });
+    }
+  });
+</script>
