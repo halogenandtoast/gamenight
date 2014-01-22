@@ -1,4 +1,6 @@
 class RsvpsController < ApplicationController
+  skip_before_filter :verify_authenticity_token, only: [:create]
+
   def create
     group = find_group
     rsvp = current_user.rsvps.find_or_create_by(group_id: group.id)
