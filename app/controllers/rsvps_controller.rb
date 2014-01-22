@@ -6,6 +6,13 @@ class RsvpsController < ApplicationController
     redirect_to group
   end
 
+  def update
+    group = find_group
+    rsvp = current_user.rsvps.find_by(group_id: group.id)
+    rsvp.update(request: params[:request] || 'new')
+    redirect_to group
+  end
+
   def destroy
     group = find_group
     rsvp = current_user.rsvps.find_by(group_id: group.id)

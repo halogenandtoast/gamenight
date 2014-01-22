@@ -26,7 +26,7 @@ Gamenight::Application.routes.draw do
   resources :groups, only: [:new, :create, :show] do
     resources :locations, only: [:new, :create]
     resources :invitations, only: [:new, :create]
-    resource :rsvp, only: [:create, :destroy]
+    resource :rsvp, only: [:create, :destroy, :update]
   end
 
   resources :invitations, only: [:show, :update, :destroy]

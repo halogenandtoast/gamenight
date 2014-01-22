@@ -21,9 +21,14 @@ class User < ActiveRecord::Base
     knows.where(game_id: game.id).exists?
   end
 
-  def attending? group
+  def rsvped? group
     rsvp = rsvps.find_by(group_id: group.id)
     rsvp && rsvp.date == group.next_date.to_date
+  end
+
+  def attending? group
+    rsvp = rsvps.find_by(group_id: group.id)
+    rsvp && rsvp.date == group.next_date.to_date && rsvp.attending?
   end
 
   def inspect

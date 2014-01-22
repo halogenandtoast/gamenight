@@ -1,0 +1,4 @@
+<p>You haven't rsvp'd for game night tonight. Are you coming?</p>
+
+<%= link_to "Yes", group_rsvp_url(@group, request: 'new') %>
+<%= link_to "No", group_rsvp_url(@group, request: 'pass') %>
