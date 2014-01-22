@@ -1,5 +1,5 @@
 class InvitationMailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: "Board Game Night <noreply@boardgamenight.herokuapp.com>"
 
   def invite invitation
     @invitation = invitation
