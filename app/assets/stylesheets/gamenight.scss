@@ -11,17 +11,6 @@ body {
   }
 }
 
-#dashboard {
-  #groups {
-    .group {
-      display: inline;
-    }
-  }
-  .group-link {
-    @include button;
-  }
-}
-
 header.main {
   background: #FFF;
   color: #EEE;
@@ -46,9 +35,12 @@ header.main {
 }
 
 .main-section {
-  width: 1000px;
+  position: relative;
+  width: 80%;
+  max-width: 1000px;
   margin: 0 auto;
   margin-top: 20px;
+  padding: 0;
   border-radius: 3px;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
   background: #FFF;
@@ -64,14 +56,29 @@ header.main {
 }
 
 .add-link {
-  @include button(pill);
-  float: right;
-  margin-top: 15px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 47px;
+  height: 47px;
+  line-height: 40px;
+  text-align: center;
+  display: block;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 0 3px 0 0;
+  border-left: 1px solid #DDD;
+  font-size: 30px;
+  font-weight: bold;
+  &:hover {
+    background: rgba(0, 0, 0, 0.1);
+  }
 }
 
 header.title {
   border-bottom: 1px solid #EEE;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
+  position: relative;
+  height: 47px;
 }
 
 
@@ -122,4 +129,52 @@ a.remove {
   top: -20px;
   right: -20px;
   position: absolute;
+}
+
+form {
+  margin: 10px;
+  padding: 10px 0;
+}
+
+.back {
+  position: absolute;
+  top: 0;
+  left: -40px;
+  font-size: 70px;
+  height: 100%;
+  line-height: 100%;
+}
+
+.status {
+  background: #333;
+  display: block;
+  width: 100%;
+  color: #dfdb38;
+  text-align: center;
+  font-weight: bold;
+  padding: 5px 0;
+}
+
+.buttons {
+  form, div {
+    display: inline;
+  }
+  margin-top: 20px;
+  text-align: center;
+  input.accept {
+    @include button(#009000);
+  }
+  span.accept {
+    color: #009000;
+  }
+  input.decline {
+    @include button(#900000);
+  }
+  span.decline {
+    color: #900000;
+  }
+}
+
+div#members, div#locations, div#groups {
+  padding-bottom: 20px;
 }

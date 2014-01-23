@@ -1,20 +1,16 @@
-<div id="dashboard">
+<section class="main-section">
+  <header class='title'>
+    <h1>My Groups</h1>
+    <%= link_to "+", new_group_path, class: 'add-link' %>
+  </header>
 
-  <section>
-    <header class='title'>
-      <h1>My Groups</h1>
-      <%= link_to "Add group", new_group_path, class: 'add-link' %>
-    </header>
-
-    <div id="groups">
-      <% current_user.groups.each do |group| %>
-        <%= div_for(group) do %>
-          <%= link_to group.title, group, class: 'group-link' %>
-        <% end %>
+  <div id="groups">
+    <% current_user.groups.each do |group| %>
+      <%= div_for(group) do %>
+        <%= link_to group.title, group, class: 'group-link' %>
       <% end %>
-    </div>
-  </section>
-
+    <% end %>
+  </div>
   <% if $flipper[:library].enabled? %>
     <section>
       <header class='title'>
@@ -49,7 +45,7 @@
       </div>
     </section>
   <% end %>
-</div>
+</section>
 
 <script type="text/javascript">
   $(".box-location-field").on("change", function() {

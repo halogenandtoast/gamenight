@@ -1,10 +1,11 @@
-<header>
-  <h1><%= @group.title %></h1>
-</header>
+<% if @group.has_next_date? %>
+  <span class="status">
+    Next Game Night: <%= @group.next_date.strftime("%B %d") %> at <%= link_to @group.next_location.title, @group.next_location %>
+  </span>
+<% end %>
 
-<div class="after-header">
-  <% if @group.has_next_date? %>
-    <div>Next Game Night: <%= @group.next_date.strftime("%B %d") %> at <%= link_to @group.next_location.title, @group.next_location %></div>
+<% if @group.has_next_date? %>
+  <section class='buttons'>
     <% if $flipper[:suggestions].enabled? %>
       <% if current_user.rsvp_for(@group).attending? %>
         You are attending
@@ -24,18 +25,27 @@
     <% else %>
       <% if current_user.rsvped?(@group) %>
         <% if current_user.attending?(@group) %>
-          You are attending
-          <%= button_to "I can't make it", group_rsvp_path(@group, request: 'pass'), method: :patch %>
+          <span class='accept'>You are attending</span>
+          <%= button_to "I can't make it", group_rsvp_path(@group, request: 'pass'), class: 'decline', method: :patch %>
         <% else %>
-          You can't make it
-          <%= button_to "I'm attending", group_rsvp_path(@group, request: 'new'), method: :patch %>
+          <span class='decline'>You can't make it</span>
+          <%= button_to "I'm attending", group_rsvp_path(@group, request: 'new'), class: 'accept', method: :patch %>
         <% end %>
       <% else %>
-        <%= button_to "I'm attending", group_rsvp_path(@group, request: 'new') %>
-        <%= button_to "I can't make it", group_rsvp_path(@group, request: 'pass') %>
+        <%= button_to "I'm attending", group_rsvp_path(@group, request: 'new'), class: 'accept' %>
+        <%= button_to "I can't make it", group_rsvp_path(@group, request: 'pass'), class: 'decline' %>
       <% end %>
     <% end %>
+  </section>
+<% end %>
 
+
+<section class='main-section'>
+  <header>
+    <h1><%= @group.title %></h1>
+  </header>
+
+  <div class="after-header">
     <h2><%= @group.attendees.count %> Attending</h2>
     <% if @group.attendees.any? %>
       <% @group.attendees.each do |user| %>
@@ -55,57 +65,58 @@
           No suggestions, you're on your own.
         <% end %>
       <% end %>
-    <% else %>
-      No one is attending
     <% end %>
-  <% end %>
-  <section>
-    <header>
-      <h1>Members</h1>
-      <%= link_to 'Invite member', new_group_invitation_path(@group) %>
-    </header>
+  </div>
+</section>
 
-    <div id="members">
-      <% @group.members.each do |member| %>
+<section class='main-section'>
+  <header class="title">
+    <h1>Members</h1>
+    <%= link_to '+', new_group_invitation_path(@group), class: 'add-link' %>
+  </header>
+
+  <div id="members">
+    <% @group.members.each do |member| %>
+      <div class="member">
         <%= link_to member.name, member %>
-      <% end %>
-    </div>
-  </section>
+      </div>
+    <% end %>
+  </div>
+</section>
 
+
+<section class='main-section'>
+  <header class="title">
+    <h1>Locations</h1>
+    <%= link_to '+', new_group_location_path(@group), class: 'add-link' %>
+  </header>
+
+  <div id="locations">
+    <% @group.locations.each do |location| %>
+      <%= div_for location do %>
+        <%= link_to location.title, location %>
+      <% end %>
+    <% end %>
+  </div>
+</section>
+
+<% if $flipper[:library].enabled? %>
   <section>
     <header>
-      <h1>Group Locations</h1>
-      <%= link_to 'Add location', new_group_location_path(@group) %>
-
+      <h1>Group Games</h1>
     </header>
 
-    <div id="locations">
-      <% @group.locations.each do |location| %>
-        <%= div_for location do %>
-          <%= link_to location.title, location %>
+    <div class="games">
+      <% if @group.boxes.any? %>
+        <% @group.boxes.each do |box| %>
+          <%= div_for(box, class: 'box-grid') do %>
+            <%= image_tag(box.image, width: 200) %>
+            <%= know_button(box.game) %>
+          <% end %>
         <% end %>
+      <% else %>
+        No boxes
       <% end %>
     </div>
   </section>
-
-  <% if $flipper[:library].enabled? %>
-    <section>
-      <header>
-        <h1>Group Games</h1>
-      </header>
-
-      <div class="games">
-        <% if @group.boxes.any? %>
-          <% @group.boxes.each do |box| %>
-            <%= div_for(box, class: 'box-grid') do %>
-              <%= image_tag(box.image, width: 200) %>
-              <%= know_button(box.game) %>
-            <% end %>
-          <% end %>
-        <% else %>
-          No boxes
-        <% end %>
-      </div>
-    </section>
-  <% end %>
-</div>
+<% end %>

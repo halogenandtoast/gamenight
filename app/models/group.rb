@@ -4,7 +4,7 @@ class Group < ActiveRecord::Base
   has_many :group_memberships
   has_many :members, through: :group_memberships, class_name: "User", source: :user
   has_many :rsvps, -> (group) { where("date = ? ", group.next_date.to_date) }
-  has_many :attending_rsvps, { class_name: 'Rsvp' }, -> (group) { where("date = ? AND request != 'pass'", group.next_date.to_date) }
+  has_many :attending_rsvps, -> (group) { where("date = ? AND request != 'pass'", group.next_date.to_date) }, { class_name: 'Rsvp' }
   has_many :attendees, through: :attending_rsvps, source: :user
 
   def has_next_date?
