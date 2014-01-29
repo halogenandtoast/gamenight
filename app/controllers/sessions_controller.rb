@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
   def create
     user = authenticate_session(session_params)
     sign_in(user) do
-      respond_with(user, location: root_path) and return
+      respond_with(user, location: redirect_path) and return
     end
     render :new
   end
@@ -18,6 +18,10 @@ class SessionsController < ApplicationController
   end
 
   private
+
+  def redirect_path
+    params[:redirect] || root_path
+  end
 
   def session_params
     params.require(:session).permit(:email, :password)

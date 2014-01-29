@@ -27,6 +27,7 @@ Gamenight::Application.routes.draw do
     resources :locations, only: [:new, :create]
     resources :invitations, only: [:new, :create]
     resource :rsvp, only: [:create, :destroy, :update]
+    get "rsvp" => "rsvps#create"
   end
 
   resources :invitations, only: [:show, :update, :destroy]
