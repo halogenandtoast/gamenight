@@ -46,25 +46,29 @@
   </header>
 
   <div class="after-header">
-    <h2><%= @group.attendees.count %> Attending</h2>
-    <% if @group.attendees.any? %>
-      <% @group.attendees.each do |user| %>
-        <%= link_to user.name, user %>
-        <% if $flipper[:suggestions].enabled? %>(<%= @group.rsvps.find_by(user_id: user.id).request %>)<% end %>
-      <% end %>
+    <% if @group.has_next_date? %>
+      <h2><%= @group.attendees.count %> Attending</h2>
+      <% if @group.attendees.any? %>
+        <% @group.attendees.each do |user| %>
+          <%= link_to user.name, user %>
+          <% if $flipper[:suggestions].enabled? %>(<%= @group.rsvps.find_by(user_id: user.id).request %>)<% end %>
+        <% end %>
 
-      <% if $flipper[:suggestions].enabled? %>
-        <h2>Suggested Games</h2>
-        <% if @group.suggested_games.any? %>
-          <ul>
-            <% @group.suggested_games.each do |game, players| %>
-              <li><%= players.map(&:name).to_sentence %> should play <%= game.title %></li>
-            <% end %>
-          </ul>
-        <% else %>
-          No suggestions, you're on your own.
+        <% if $flipper[:suggestions].enabled? %>
+          <h2>Suggested Games</h2>
+          <% if @group.suggested_games.any? %>
+            <ul>
+              <% @group.suggested_games.each do |game, players| %>
+                <li><%= players.map(&:name).to_sentence %> should play <%= game.title %></li>
+              <% end %>
+            </ul>
+          <% else %>
+            No suggestions, you're on your own.
+          <% end %>
         <% end %>
       <% end %>
+    <% else %>
+      No date scheduled. Add a location and set a date.
     <% end %>
   </div>
 </section>
@@ -92,6 +96,9 @@
   </header>
 
   <div id="locations">
+    <% if @group.locations.empty? %>
+      <strong>Add a location by clicking the plus in the upper right hand corner of this box.</strong>
+    <% end %>
     <% @group.locations.each do |location| %>
       <%= div_for location do %>
         <%= link_to location.title, location %>

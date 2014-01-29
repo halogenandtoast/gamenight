@@ -1,14 +1,15 @@
-<header class="title">
-  <h1>Invite a user to <%= @group.title %></h1>
-  <div class="back">
-    <%= link_to "&laquo;".html_safe, @group %>
-  </div>
-</header>
+<section class='main-section'>
+  <header class="title">
+    <h1>Invite a user to <%= @group.title %></h1>
+    <div class="back">
+      <%= link_to "&laquo;".html_safe, @group %>
+    </div>
+  </header>
 
-<%= form_for([@group, @invitation]) do |form| %>
-  <%= form.fields_for(:user) do |user_form| %>
-    <%= user_form.email_field :email, placeholder: "Email address" %>
+  <%= form_for([@group, @invitation]) do |form| %>
+    <%= form.fields_for(:user) do |user_form| %>
+      <%= user_form.email_field :email, placeholder: "Email address" %>
+    <% end %>
+    <%= form.submit "Invite" %>
   <% end %>
-  <%= form.submit "Invite" %>
-<% end %>
-
+</section>
