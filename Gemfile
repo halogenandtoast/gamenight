@@ -18,6 +18,7 @@ gem 'bitters'
 gem 'font-awesome-rails', '~> 4.0.3.1'
 gem 'flipper'
 gem 'rails_12factor'
+gem 'newrelic_rpm'
 
 group :development do
   gem 'better_errors'
