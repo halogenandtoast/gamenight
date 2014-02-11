@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 gem 'rails', '4.0.2'
 
-gem 'monban', git: "https://github.com/halogenandtoast/monban.git", ref: "fd2d7b3742a24ca3bfe2e8baf702c0f9661906d4"
+gem 'monban', git: "https://github.com/halogenandtoast/monban.git", ref: "HEAD"
 gem 'pg'
 gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
@@ -24,7 +24,6 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'quiet_assets'
-  gem 'bullet'
 end
 
 group :test, :development do
@@ -37,3 +36,4 @@ group :test, :development do
   gem 'pry-debugger'
   gem 'pry-stack_explorer'
 end
+

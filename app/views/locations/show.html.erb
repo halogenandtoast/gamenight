@@ -26,8 +26,9 @@
     <% end %>
   </section>
 
-  <% if $flipper[:libary].enabled? %>
-    <section>
+  <% if $flipper[:library].enabled? %>
+  </section>
+    <section class="main-section">
 
       <header>
         <h1>Games</h1>
@@ -48,7 +49,7 @@
                 <% end %>
               <% end %>
               <ul class="box-contents">
-                <% box.games.each do |game| %>
+                <% box.games.drop(1).each do |game| %>
                   <li>and <%= game.title %></li>
                 <% end %>
               </ul>

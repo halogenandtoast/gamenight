@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-feature 'user assigns game' do
+feature 'user assigns game', :js do
   scenario 'to a location' do
     user = create(:user)
     group = create(:group, title: "Boston")
     user.groups << group
     location = create(:location, title: "Office", group: group)
     game = create(:game, title: "Archon")
-    user.games << game
+    user.add_game game
 
     sign_in(user)
     assign_game_to("Office")
@@ -24,7 +24,7 @@ feature 'user assigns game' do
     user.groups << group
     location = create(:location, title: "Office", group: group)
     game = create(:game, title: "Archon")
-    user.game_copies.create(game: game, location: location)
+    user.boxes.create(title: game.title, game_ids: [game.id], location: location)
 
     sign_in(user)
     assign_game_to("")
@@ -37,7 +37,6 @@ feature 'user assigns game' do
 
   def assign_game_to location
     visit root_path
-    select location, from: "game_copy[location_id]"
-    click_button "Update"
+    select location, from: "box[location_id]"
   end
 end

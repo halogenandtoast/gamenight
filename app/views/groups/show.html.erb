@@ -7,7 +7,7 @@
 <% if @group.has_next_date? %>
   <section class='buttons'>
     <% if $flipper[:suggestions].enabled? %>
-      <% if current_user.rsvp_for(@group).attending? %>
+      <% if current_user.rsvped?(@group) %>
         You are attending
         and you would like to play a
         <% if current_user.rsvps.find_by(group_id: @group.id).request == 'know' %>
@@ -83,6 +83,7 @@
     <% @group.members.each do |member| %>
       <div class="member">
         <%= link_to member.name, member %>
+        <%= rsvp_tag(member, @group) %>
       </div>
     <% end %>
   </div>
@@ -92,7 +93,7 @@
 <section class='main-section'>
   <header class="title">
     <h1>Locations</h1>
-    <%= link_to '+', new_group_location_path(@group), class: 'add-link' %>
+    <%= link_to '+', new_group_location_path(@group), class: 'add-link', data: { role: 'add-location' } %>
   </header>
 
   <div id="locations">
@@ -108,7 +109,7 @@
 </section>
 
 <% if $flipper[:library].enabled? %>
-  <section>
+  <section class="main-section">
     <header>
       <h1>Group Games</h1>
     </header>
@@ -116,7 +117,7 @@
     <div class="games">
       <% if @group.boxes.any? %>
         <% @group.boxes.each do |box| %>
-          <%= div_for(box, class: 'box-grid') do %>
+          <%= div_for(box, class: 'box-grid', data: { title: box.title }) do %>
             <%= image_tag(box.image, width: 200) %>
             <%= know_button(box.game) %>
           <% end %>

@@ -8,7 +8,7 @@ feature 'user adds location' do
     sign_in(user)
     visit root_path
     click_link 'Boston'
-    click_link 'Add location'
+    find("[data-role=add-location]").click
     fill_in "Title", with: "Office"
     click_button "Add"
     expect(page).to have_content("Office")

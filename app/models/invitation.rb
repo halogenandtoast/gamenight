@@ -10,6 +10,8 @@ class Invitation < ActiveRecord::Base
     token
   end
 
+  private
+
   def generate_token
     self.token = SecureRandom.urlsafe_base64
     while Invitation.exists?(token: self.token)

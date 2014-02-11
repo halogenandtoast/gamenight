@@ -1,7 +1,7 @@
 <section class="main-section">
   <header class='title'>
     <h1>My Groups</h1>
-    <%= link_to "+", new_group_path, class: 'add-link' %>
+    <%= link_to "+", new_group_path, class: 'add-link', data: { role: 'add-group' } %>
   </header>
 
   <div id="groups">
@@ -12,10 +12,11 @@
     <% end %>
   </div>
   <% if $flipper[:library].enabled? %>
-    <section>
+  </section>
+    <section class="main-section">
       <header class='title'>
         <h1>My Games</h1>
-        <%= link_to "Add game", new_game_path, class: 'add-link' %>
+        <%= link_to "+", new_game_path, class: 'add-link', data: { role: 'add-game' } %>
       </header>
 
       <div class="games">

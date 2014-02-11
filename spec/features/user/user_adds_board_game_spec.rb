@@ -2,14 +2,15 @@ require 'spec_helper'
 
 feature 'user adds board game' do
   scenario 'successfully' do
+    create(:game, title: "Archon")
     stub_bgg_api("Archon")
     user = create(:user)
     sign_in(user)
     visit root_path
-    click_link 'Add game'
+    find("a[data-role=add-game]").click
     fill_in "Title", with: "Archon"
     click_button "Add"
-    expect(page).to have_content("Archon")
+    expect(page).to have_css("[data-title=Archon]")
   end
 
   def stub_bgg_api(title)

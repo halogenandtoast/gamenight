@@ -20,7 +20,7 @@ class GamesController < ApplicationController
   end
 
   def find_or_create_game
-    if params[:game][:id]
+    if params[:game][:id].present?
       retrieve_game
     else
       GameCreator.new(title).create

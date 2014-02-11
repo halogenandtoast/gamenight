@@ -7,12 +7,12 @@ feature 'user views group' do
     user.groups << group
     location = create(:location, title: "Office", group: group)
     game = create(:game, title: "Archon")
-    user.game_copies.create(game: game, location: location)
+    user.boxes.create(title: "Archon", game_ids: [game.id], location: location)
 
     sign_in(user)
     visit dashboard_path
     click_link "Boston"
 
-    expect(page).to have_content("Archon")
+    expect(page).to have_css("[data-title=Archon]")
   end
 end
