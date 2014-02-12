@@ -17,7 +17,6 @@ gem 'normalize-rails', '~> 2.1.3'
 gem 'bitters'
 gem 'font-awesome-rails', '~> 4.0.3.1'
 gem 'flipper'
-gem 'rails_12factor'
 gem 'newrelic_rpm'
 
 group :development do
@@ -37,3 +36,6 @@ group :test, :development do
   gem 'pry-stack_explorer'
 end
 
+group :production do
+  gem 'rails_12factor'
+end
