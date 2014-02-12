@@ -22,8 +22,7 @@ class User < ActiveRecord::Base
   end
 
   def rsvped? group
-    rsvp = rsvps.find_by(group_id: group.id)
-    rsvp && rsvp.date == group.next_date.to_date
+    rsvps.where(group_id: group.id, date: group.next_date.to_date).exists?
   end
 
   def attending? group
