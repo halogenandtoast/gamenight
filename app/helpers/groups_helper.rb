@@ -7,6 +7,16 @@ module GroupsHelper
     end
   end
 
+  def next_date_string(group)
+    if group.next_date.to_date == Date.today
+      "Today"
+    elsif group.next_date.to_date == Date.today + 1
+      "Tomorrow"
+    else
+      group.next_date.strftime("%B %d")
+    end
+  end
+
   def rsvped_tag(member, group)
     if member.attending?(group)
       attending_tag("is-attending", "Attending")

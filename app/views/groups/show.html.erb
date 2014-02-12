@@ -1,6 +1,6 @@
 <% if @group.has_next_date? %>
   <span class="status">
-    Next Game Night: <%= @group.next_date.strftime("%B %d") %> at <%= link_to @group.next_location.title, @group.next_location %>
+    Next Game Night: <%= next_date_string(@group) %> at <%= link_to @group.next_location.title, @group.next_location %>
   </span>
 <% end %>
 
