@@ -2,6 +2,7 @@ require 'spec_helper'
 
 feature 'guest signs up' do
   scenario 'succesfully' do
+    pending
     visit root_path
     click_link 'Sign up'
     fill_in 'Email', with: 'foo@example.com'

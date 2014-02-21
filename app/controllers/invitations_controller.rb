@@ -16,15 +16,7 @@ class InvitationsController < ApplicationController
 
   def update
     invitation = find_invitation
-    user = invitation.user
-    if user.status == 'invited'
-      user.update(user_params.except(:password).merge(status: 'active'))
-      Monban::PasswordReset.new(user, user_params[:password]).perform
-      user.save
-      sign_in(user)
-    end
-    user.groups << invitation.group
-    invitation.destroy
+    inviation.complete(user_params) { |user| sign_in(user) }
     redirect_to invitation.group
   end
 

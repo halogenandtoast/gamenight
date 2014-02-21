@@ -83,7 +83,9 @@
     <% @group.members.each do |member| %>
       <div class="member">
         <%= link_to member.name, member %>
-        <%= rsvp_tag(member, @group) %>
+        <% if @group.has_next_date? %>
+          <%= rsvp_tag(member, @group) %>
+        <% end %>
       </div>
     <% end %>
   </div>

@@ -1,9 +1,4 @@
 <p>You haven't rsvp'd for game night tonight. Are you coming?</p>
 
-<form action="<%= group_rsvp_url(@group, request: 'new') %>" method="POST">
-  <input type="submit" value="Yes">
-</form>
-
-<form action="<%= group_rsvp_url(@group, request: 'pass') %>" method="POST">
-  <input type="submit" value="No">
-</form>
+<%= link_to 'Yes', group_rsvp_url(@group, request: 'new', token: @slacker.token) %>
+<%= link_to 'No', group_rsvp_url(@group, request: 'pass', token: @slacker.token) %>

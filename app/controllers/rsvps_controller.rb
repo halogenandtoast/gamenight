@@ -32,8 +32,19 @@ class RsvpsController < ApplicationController
   end
 
   def ensure_login
+    sign_in_via_token
     unless signed_in?
       redirect_to new_session_path(redirect: request.url)
     end
+  end
+
+  def sign_in_via_token
+    if user_from_token
+      sign_in(user_from_token)
+    end
+  end
+
+  def user_from_token
+    @user = User.find_by(token: params[:token])
   end
 end
