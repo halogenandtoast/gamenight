@@ -31,7 +31,7 @@ class InvitationCompletor
 
   def invited_user_params
     {
-      status: 'active'
+      status: 'active',
       token: generate_token
     }
   end
