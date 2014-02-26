@@ -8,9 +8,9 @@ module GroupsHelper
   end
 
   def next_date_string(group)
-    if group.next_date.to_date == Date.today
+    if group.next_date.to_date == Time.zone.today
       "Today"
-    elsif group.next_date.to_date == Date.today + 1
+    elsif group.next_date.to_date == Time.zone.today + 1
       "Tomorrow"
     else
       group.next_date.strftime("%B %d")
