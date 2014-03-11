@@ -1,4 +1,9 @@
 <p>You haven't rsvp'd for game night tonight. Are you coming?</p>
 
-<%= link_to 'Yes', group_rsvp_url(@group, request: 'new', token: @slacker.token) %>
-<%= link_to 'No', group_rsvp_url(@group, request: 'pass', token: @slacker.token) %>
+<div>
+  <%= link_to 'Yes', group_rsvp_url(@group, request: 'new', token: @slacker.token), style: "padding: 10px; margin: 10px;" %>
+</div>
+
+<div>
+  <%= link_to 'No', group_rsvp_url(@group, request: 'pass', token: @slacker.token), style: "padding: 10px; margin: 10px;" %>
+</div>
