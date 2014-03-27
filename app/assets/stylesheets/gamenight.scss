@@ -11,6 +11,19 @@ body {
   }
 }
 
+.notes {
+  background: #CCF0CC;
+  max-width: 980px;
+  margin: 0 auto;
+  margin-top: 20px;
+  padding: 10px;
+  color: #006000;
+  border: 1px solid #AAD0AA;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+
 header.main {
   background: #FFF;
   color: #EEE;

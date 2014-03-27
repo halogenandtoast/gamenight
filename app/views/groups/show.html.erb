@@ -2,9 +2,11 @@
   <span class="status">
     Next Game Night: <%= next_date_string(@group) %> at <%= link_to @group.next_location.title, @group.next_location %>
   </span>
-<% end %>
 
-<% if @group.has_next_date? %>
+  <% if @group.next_location.notes.present? %>
+    <p class="notes"><%= @group.next_location.notes %></p>
+  <% end %>
+
   <section class='buttons'>
     <% if $flipper[:suggestions].enabled? %>
       <% if current_user.rsvped?(@group) %>
