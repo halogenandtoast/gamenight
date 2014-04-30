@@ -16,7 +16,8 @@ class InvitationsController < ApplicationController
 
   def update
     invitation = find_invitation
-    invitation.complete(user_params) { |user| sign_in(user) }
+    invitation.complete(user_params)
+    sign_in(invitation.user)
     redirect_to invitation.group
   end
 

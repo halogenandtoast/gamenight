@@ -1,15 +1,17 @@
 class SessionsController < ApplicationController
-  respond_to :html
+  skip_before_filter :require_login
 
   def new
   end
 
   def create
     user = authenticate_session(session_params)
-    sign_in(user) do
-      respond_with(user, location: redirect_path) and return
+
+    if sign_in(user)
+      redirect_to redirect_path
+    else
+      render :new
     end
-    render :new
   end
 
   def destroy
