@@ -10,12 +10,22 @@ class Invitation < ActiveRecord::Base
     token
   end
 
-  private
-
-  def generate_token
-    self.token = SecureRandom.urlsafe_base64
-    while Invitation.exists?(token: self.token)
-      self.token = SecureRandom.urlsafe_base64
+  def complete(user_params)
+    if user.status == 'invited'
+      user.update(user_params.except(:password).merge(status: 'active'))
+      Monban::PasswordReset.new(user, user_params[:password]).perform
+      user.save
     end
+    user.groups << group
+    destroy
   end
+
+private
+
+def generate_token
+  self.token = SecureRandom.urlsafe_base64
+  while Invitation.exists?(token: self.token)
+    self.token = SecureRandom.urlsafe_base64
+  end
+end
 end

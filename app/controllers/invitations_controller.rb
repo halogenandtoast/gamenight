@@ -16,7 +16,7 @@ class InvitationsController < ApplicationController
 
   def update
     invitation = find_invitation
-    inviation.complete(user_params) { |user| sign_in(user) }
+    invitation.complete(user_params) { |user| sign_in(user) }
     redirect_to invitation.group
   end
 
@@ -47,6 +47,10 @@ class InvitationsController < ApplicationController
   end
 
   def user_params
-    params[:invitation][:user].permit!
+    (invitation_params[:user] || ActionController::Parameters.new).permit!
+  end
+
+  def invitation_params
+    params[:invitation] || {}
   end
 end
