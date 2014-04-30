@@ -211,3 +211,17 @@ div#members, div#locations, div#groups {
 .needs-rsvp {
   background-color: #999999;
 }
+
+.group-leave-link {
+  float: right;
+  color: red;
+}
+
+.group {
+  border-top: 1px solid #EEE;
+  padding: 5px 0;
+}
+
+.group:nth-of-type(1) {
+  border: none;
+}
