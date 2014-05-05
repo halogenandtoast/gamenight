@@ -112,23 +112,21 @@
   </div>
 </section>
 
-<% if $flipper[:library].enabled? %>
-  <section class="main-section">
-    <header>
-      <h1>Group Games</h1>
-    </header>
+<section class="main-section">
+  <header>
+    <h1>Group Games</h1>
+  </header>
 
-    <div class="games">
-      <% if @group.boxes.any? %>
-        <% @group.boxes.each do |box| %>
-          <%= div_for(box, class: 'box-grid', data: { title: box.title }) do %>
-            <%= image_tag(box.image, width: 200) %>
-            <%= know_button(box.game) %>
-          <% end %>
+  <div class="games">
+    <% if @group.boxes.any? %>
+      <% @group.boxes.each do |box| %>
+        <%= div_for(box, class: 'box-grid', data: { title: box.title }) do %>
+          <%= image_tag(box.image, width: 200) %>
+          <%= know_button(box.game) %>
         <% end %>
-      <% else %>
-        No boxes
       <% end %>
-    </div>
-  </section>
-<% end %>
+    <% else %>
+      No boxes
+    <% end %>
+  </div>
+</section>
