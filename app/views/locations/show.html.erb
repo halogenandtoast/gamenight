@@ -43,7 +43,6 @@
         <% @location.boxes.includes(:games).each do |box| %>
           <%= div_for(box, data: { title: box.title, href: my_box_path(box), id: box.id }) do %>
             <%= link_to image_tag(box.image, width: 200), my_box_path(box) %>
-            <%= know_button(box.game) %>
 
             <% if current_user.owns? box %>
               <%= form_for box, url: box_assignment_path(box), namespace: box.title.parameterize, remote: true, method: :patch do |form| %>

@@ -122,7 +122,6 @@
       <% @group.boxes.each do |box| %>
         <%= div_for(box, class: 'box-grid', data: { title: box.title }) do %>
           <%= image_tag(box.image, width: 200) %>
-          <%= know_button(box.game) %>
         <% end %>
       <% end %>
     <% else %>
