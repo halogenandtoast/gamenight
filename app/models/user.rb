@@ -7,7 +7,6 @@ class User < ActiveRecord::Base
 
   has_many :groups, through: :group_memberships
   has_many :locations, through: :groups
-  has_many :known_games, through: :knows, source: :game, class_name: "Game"
 
   def add_game game
     boxes.create(title: game.title, game_ids: [game.id])

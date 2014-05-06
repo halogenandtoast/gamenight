@@ -48,10 +48,6 @@ Gamenight::Application.routes.draw do
   end
 
   namespace :my do
-    resources :boxes, only: [:show, :destroy] do
-      member do
-        post "merge" => "merges#create"
-      end
-    end
+    resources :boxes, only: [:show, :destroy]
   end
 end

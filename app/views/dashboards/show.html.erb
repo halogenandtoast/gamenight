@@ -30,11 +30,6 @@
               <%= form.label :location_id, "at" %>
               <%= form.select :location_id, current_user.locations.map { |location| [location.title, location.id] }, { include_blank: true }, { class: 'box-location-field' } %>
             <% end %>
-            <ul class="box-contents">
-              <% box.games.drop(1).each do |game| %>
-                <li><%= game.title %></li>
-              <% end %>
-            </ul>
 
             <%= link_to "Remove", [:my, box], method: :delete, class: "remove", data: { confirm: "Are you sure?" } %>
           <% end %>
@@ -49,27 +44,5 @@
 <script type="text/javascript">
   $(".box-location-field").on("change", function() {
     $(this.form).trigger("submit")
-  });
-
-  $(".box").draggable({
-    revert: "invalid",
-    opacity: 0.7,
-    handle: "img",
-    helper: function( event ) {
-      return $(event.target).clone();
-    }
-  });
-
-  $(".box").droppable({
-    tolerance: "pointer",
-    drop: function(event, ui) {
-      var self = this;
-      $.post($(this).data("href") + "/merge.json", { box_id: ui.draggable.data("id") }, function(data) {
-        ui.draggable.remove();
-        li = $("<li>")
-        li.append(ui.draggable.data("title"));
-        $(self).find(".box-contents").append(li)
-      });
-    }
   });
 </script>
