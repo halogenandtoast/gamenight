@@ -2,7 +2,6 @@ class User < ActiveRecord::Base
   has_many :boxes, as: :owner, dependent: :destroy
   has_many :games, through: :boxes
   has_many :group_memberships, dependent: :destroy
-  has_many :knows, dependent: :destroy
   has_many :rsvps, dependent: :destroy
   has_many :invitations, dependent: :destroy
 
@@ -15,10 +14,6 @@ class User < ActiveRecord::Base
 
   def owns? box
     box.owner_type == 'User' && box.owner_id == id
-  end
-
-  def knows? game
-    knows.where(game_id: game.id).exists?
   end
 
   def rsvped? group
