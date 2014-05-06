@@ -3,15 +3,15 @@ module GroupsHelper
     if member.rsvped?(group)
       rsvped_tag(member, group)
     else
-      attending_tag("needs-rsvp", "Hasn't RSVP'd")
+      attending_tag("needs-rsvp", "#{member.name} ?")
     end
   end
 
   def next_date_string(group)
     if group.next_date.to_date == Time.zone.today
-      "Today"
+      "today"
     elsif group.next_date.to_date == Time.zone.today + 1
-      "Tomorrow"
+      "tomorrow"
     else
       group.next_date.strftime("%B %d")
     end
@@ -19,9 +19,9 @@ module GroupsHelper
 
   def rsvped_tag(member, group)
     if member.attending?(group)
-      attending_tag("is-attending", "Attending")
+      attending_tag("is-attending", "#{member.name} ✓")
     else
-      attending_tag("not-attending", "Can't attend")
+      attending_tag("not-attending", "#{member.name} X")
     end
   end
 
