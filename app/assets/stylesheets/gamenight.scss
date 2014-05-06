@@ -180,6 +180,7 @@ nav.right {
   }
   > div {
     padding: 10px;
+    padding-top: 0px;
   }
 }
 
@@ -295,10 +296,6 @@ form {
   span.decline {
     color: #900000;
   }
-}
-
-div#members, div#locations, div#groups {
-  padding-bottom: 20px;
 }
 
 .attending-tag {
