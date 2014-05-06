@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :boxes, as: :owner, dependent: :destroy
+  has_many :games, through: :boxes
   has_many :group_memberships, dependent: :destroy
   has_many :knows, dependent: :destroy
   has_many :rsvps, dependent: :destroy
@@ -9,7 +10,7 @@ class User < ActiveRecord::Base
   has_many :locations, through: :groups
 
   def add_game game
-    boxes.create(title: game.title, game_ids: [game.id])
+    games << game
   end
 
   def owns? box

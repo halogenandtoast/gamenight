@@ -11,20 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140327133633) do
+ActiveRecord::Schema.define(version: 20140506012555) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "boxed_games", force: true do |t|
-    t.integer  "box_id"
-    t.integer  "game_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "boxed_games", ["box_id"], name: "index_boxed_games_on_box_id", using: :btree
-  add_index "boxed_games", ["game_id"], name: "index_boxed_games_on_game_id", using: :btree
 
   create_table "boxes", force: true do |t|
     t.integer  "location_id"
@@ -32,7 +22,7 @@ ActiveRecord::Schema.define(version: 20140327133633) do
     t.datetime "updated_at"
     t.integer  "owner_id"
     t.string   "owner_type"
-    t.string   "title"
+    t.integer  "game_id"
   end
 
   add_index "boxes", ["location_id"], name: "index_boxes_on_location_id", using: :btree
