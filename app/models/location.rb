@@ -7,11 +7,7 @@ class Location < ActiveRecord::Base
   serialize :recurrence_rules, Hash
 
   def add_game game
-    boxes.create(owner: self, location: self, game_ids: [game.id])
-  end
-
-  def game_users(game, suggested_games)
-    suggested_games[game][:know] + suggested_games[game][:new] + suggested_games[game][:other]
+    boxes.create(owner: self, title: game.title, game: game)
   end
 
   def schedule
