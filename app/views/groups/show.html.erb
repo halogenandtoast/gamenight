@@ -8,35 +8,17 @@
   <% end %>
 
   <section class='buttons'>
-    <% if $flipper[:suggestions].enabled? %>
-      <% if current_user.rsvped?(@group) %>
-        You are attending
-        and you would like to play a
-        <% if current_user.rsvps.find_by(group_id: @group.id).request == 'know' %>
-          game you know
-          <%= button_to "change to new", group_rsvp_path(@group, request: 'new') %>
-        <% else %>
-          new game
-          <%= button_to "change to know", group_rsvp_path(@group, request: 'know') %>
-        <% end %>
-        <%= button_to "I can't make it", group_rsvp_path(@group), method: :delete %>
+    <% if current_user.rsvped?(@group) %>
+      <% if current_user.attending?(@group) %>
+        <span class='accept'>You are attending</span>
+        <%= button_to "I can't make it", group_rsvp_path(@group, request: 'pass'), class: 'decline', method: :patch %>
       <% else %>
-        <%= button_to "I'm attending (know)", group_rsvp_path(@group, request: 'know') %>
-        <%= button_to "I'm attending (new)", group_rsvp_path(@group, request: 'new') %>
+        <span class='decline'>You can't make it</span>
+        <%= button_to "I'm attending", group_rsvp_path(@group, request: 'new'), class: 'accept', method: :patch %>
       <% end %>
     <% else %>
-      <% if current_user.rsvped?(@group) %>
-        <% if current_user.attending?(@group) %>
-          <span class='accept'>You are attending</span>
-          <%= button_to "I can't make it", group_rsvp_path(@group, request: 'pass'), class: 'decline', method: :patch %>
-        <% else %>
-          <span class='decline'>You can't make it</span>
-          <%= button_to "I'm attending", group_rsvp_path(@group, request: 'new'), class: 'accept', method: :patch %>
-        <% end %>
-      <% else %>
-        <%= button_to "I'm attending", group_rsvp_path(@group, request: 'new'), class: 'accept' %>
-        <%= button_to "I can't make it", group_rsvp_path(@group, request: 'pass'), class: 'decline' %>
-      <% end %>
+      <%= button_to "I'm attending", group_rsvp_path(@group, request: 'new'), class: 'accept' %>
+      <%= button_to "I can't make it", group_rsvp_path(@group, request: 'pass'), class: 'decline' %>
     <% end %>
   </section>
 <% end %>
@@ -53,20 +35,6 @@
       <% if @group.attendees.any? %>
         <% @group.attendees.each do |user| %>
           <%= link_to user.name, user %>
-          <% if $flipper[:suggestions].enabled? %>(<%= @group.rsvps.find_by(user_id: user.id).request %>)<% end %>
-        <% end %>
-
-        <% if $flipper[:suggestions].enabled? %>
-          <h2>Suggested Games</h2>
-          <% if @group.suggested_games.any? %>
-            <ul>
-              <% @group.suggested_games.each do |game, players| %>
-                <li><%= players.map(&:name).to_sentence %> should play <%= game.title %></li>
-              <% end %>
-            </ul>
-          <% else %>
-            No suggestions, you're on your own.
-          <% end %>
         <% end %>
       <% end %>
     <% else %>

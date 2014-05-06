@@ -16,7 +16,6 @@ gem 'recurring_select', '~> 1.2.1.rc3'
 gem 'normalize-rails', '~> 2.1.3'
 gem 'bitters'
 gem 'font-awesome-rails', '~> 4.0.3.1'
-gem 'flipper'
 gem 'newrelic_rpm'
 
 group :development do
