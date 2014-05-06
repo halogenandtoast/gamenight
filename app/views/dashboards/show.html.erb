@@ -21,8 +21,8 @@
   </header>
 
   <div class="games">
-    <% if current_user.boxes.any? %>
-      <% current_user.boxes.each do |box| %>
+    <% if @boxes.any? %>
+      <% @boxes.each do |box| %>
         <%= div_for(box) do %>
           <%= image_tag(box.image, width: 200) %>
 
