@@ -23,14 +23,16 @@
   <div class="games">
     <% if current_user.boxes.any? %>
       <% current_user.boxes.each do |box| %>
-        <%= image_tag(box.image, width: 200) %>
+        <%= div_for(box) do %>
+          <%= image_tag(box.image, width: 200) %>
 
-        <%= form_for box, url: assign_box_path(box), namespace: box.title.parameterize, remote: true, method: :patch do |form| %>
-          <%= form.label :location_id, "at" %>
-          <%= form.select :location_id, current_user.locations.map { |location| [location.title, location.id] }, { include_blank: true }, { class: 'box-location-field' } %>
+          <%= form_for box, url: assign_box_path(box), namespace: box.title.parameterize, remote: true, method: :patch do |form| %>
+            <%= form.label :location_id, "at" %>
+            <%= form.select :location_id, current_user.locations.map { |location| [location.title, location.id] }, { include_blank: true }, { class: 'box-location-field' } %>
+          <% end %>
+
+          <%= link_to "Remove", box, method: :delete, class: "remove", data: { confirm: "Are you sure?" } %>
         <% end %>
-
-        <%= link_to "Remove", box, method: :delete, class: "remove", data: { confirm: "Are you sure?" } %>
       <% end %>
     <% else %>
       No games yet.

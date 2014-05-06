@@ -41,16 +41,18 @@
   <div class="games">
     <% if @location.boxes.any? %>
       <% @location.boxes.each do |box| %>
-        <%= image_tag(box.image, width: 200) %>
+        <%= div_for(box) do %>
+          <%= image_tag(box.image, width: 200) %>
 
-        <% if current_user.owns? box %>
-          <%= form_for box, url: assign_box_path(box), namespace: box.title.parameterize, remote: true, method: :patch do |form| %>
-            <%= form.label :location_id, "at" %>
-            <%= form.select :location_id, current_user.locations.map { |location| [location.title, location.id] }, { include_blank: true }, { class: 'box-location-field' } %>
+          <% if current_user.owns? box %>
+            <%= form_for box, url: assign_box_path(box), namespace: box.title.parameterize, remote: true, method: :patch do |form| %>
+              <%= form.label :location_id, "at" %>
+              <%= form.select :location_id, current_user.locations.map { |location| [location.title, location.id] }, { include_blank: true }, { class: 'box-location-field' } %>
+            <% end %>
           <% end %>
-        <% end %>
-        <% if @location.owns? box %>
-          <%= link_to "Remove", box, method: :delete, class: 'remove', data: { confirm: "Are you sure?" } %>
+          <% if @location.owns? box %>
+            <%= link_to "Remove", box, method: :delete, class: 'remove', data: { confirm: "Are you sure?" } %>
+          <% end %>
         <% end %>
       <% end %>
     <% else %>
