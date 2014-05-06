@@ -31,40 +31,32 @@
   </section>
 
 </section>
-  <section class="main-section">
+<section class="main-section">
 
-    <header>
-      <h1>Games</h1>
-      <%= link_to 'Add game', new_location_game_path(@location) %>
-    </header>
+  <header>
+    <h1>Games</h1>
+    <%= link_to 'Add game', new_location_game_path(@location) %>
+  </header>
 
-    <div class="games">
-      <% if @location.boxes.any? %>
-        <% @location.boxes.includes(:games).each do |box| %>
-          <%= div_for(box, data: { title: box.title, href: my_box_path(box), id: box.id }) do %>
-            <%= link_to image_tag(box.image, width: 200), my_box_path(box) %>
+  <div class="games">
+    <% if @location.boxes.any? %>
+      <% @location.boxes.each do |box| %>
+        <%= image_tag(box.image, width: 200) %>
 
-            <% if current_user.owns? box %>
-              <%= form_for box, url: box_assignment_path(box), namespace: box.title.parameterize, remote: true, method: :patch do |form| %>
-                <%= form.label :location_id, "at" %>
-                <%= form.select :location_id, current_user.locations.map { |location| [location.title, location.id] }, { include_blank: true }, { class: 'box-location-field' } %>
-              <% end %>
-            <% end %>
-            <ul class="box-contents">
-              <% box.games.drop(1).each do |game| %>
-                <li>and <%= game.title %></li>
-              <% end %>
-            </ul>
-            <% if @location.owns? box %>
-              <%= link_to "Remove", [:my, box], method: :delete, class: 'remove', data: { confirm: "Are you sure?" } %>
-            <% end %>
+        <% if current_user.owns? box %>
+          <%= form_for box, url: assign_box_path(box), namespace: box.title.parameterize, remote: true, method: :patch do |form| %>
+            <%= form.label :location_id, "at" %>
+            <%= form.select :location_id, current_user.locations.map { |location| [location.title, location.id] }, { include_blank: true }, { class: 'box-location-field' } %>
           <% end %>
         <% end %>
-      <% else %>
-        No games yet.
+        <% if @location.owns? box %>
+          <%= link_to "Remove", box, method: :delete, class: 'remove', data: { confirm: "Are you sure?" } %>
+        <% end %>
       <% end %>
-    </div>
-  </section>
+    <% else %>
+      No games yet.
+    <% end %>
+  </div>
 </section>
 
 <script type="text/javascript">

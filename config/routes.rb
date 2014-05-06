@@ -16,10 +16,11 @@ Gamenight::Application.routes.draw do
   resources :users, only: [:show, :new, :create]
   resource :dashboard, only: [:show]
 
-  resources :games, only: [:new, :create] do
+  resources :games, only: [:new, :create]
+
+  resources :boxes, only: [:destroy] do
     member do
-      post 'know' => 'knows#create'
-      delete 'know' => 'knows#destroy'
+      patch 'assign' => 'assignments#update'
     end
   end
 
@@ -35,19 +36,11 @@ Gamenight::Application.routes.draw do
 
   resources :invitations, only: [:show, :update, :destroy]
 
-  resources :boxes, only: [:none] do
-    resource :assignment, only: [:update]
-  end
-
   resources :locations, only: [:show, :update] do
     resources :games, only: [:new, :create]
   end
 
   namespace :search do
     resources :games, only: [:index]
-  end
-
-  namespace :my do
-    resources :boxes, only: [:show, :destroy]
   end
 end

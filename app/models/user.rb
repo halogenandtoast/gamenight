@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   has_many :locations, through: :groups
 
   def add_game game
-    games << game
+    boxes.create(title: game.title, game: game)
   end
 
   def owns? box
