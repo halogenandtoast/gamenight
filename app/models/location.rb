@@ -19,7 +19,9 @@ class Location < ActiveRecord::Base
   end
 
   def recurrence_rules=(new_rule)
-    write_attribute(:recurrence_rules, RecurringSelect.dirty_hash_to_rule(new_rule).to_hash)
+    if new_rule != 'null'
+      write_attribute(:recurrence_rules, RecurringSelect.dirty_hash_to_rule(new_rule).to_hash)
+    end
   end
 
   def owns? box
@@ -27,10 +29,18 @@ class Location < ActiveRecord::Base
   end
 
   def has_next_date?
-    schedule.present?
+    has_starts_on_in_future? || schedule.present?
+  end
+
+  def has_starts_on_in_future?
+    starts_on.present? && starts_on >= Date.today
   end
 
   def next_date
-    schedule.occurs_at?(Date.today) ? Date.today : schedule.next_occurrence
+    if schedule.present?
+      schedule.occurs_at?(Date.today) ? Date.today : schedule.next_occurrence
+    else
+      starts_on
+    end
   end
 end

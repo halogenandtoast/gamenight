@@ -1,99 +1,92 @@
-<% if @group.has_next_date? %>
-  <span class="status">
-    Next Game Night: <%= next_date_string(@group) %> at <%= link_to @group.next_location.title, @group.next_location %>
-  </span>
+<header class="top-level-title">
+  <h1><%= @group.title %></h1>
+</header>
 
-  <% if @group.next_location.notes.present? %>
-    <p class="notes"><%= @group.next_location.notes %></p>
-  <% end %>
-
-  <section class='buttons'>
-    <% if current_user.rsvped?(@group) %>
-      <% if current_user.attending?(@group) %>
-        <span class='accept'>You are attending</span>
-        <%= button_to "I can't make it", group_rsvp_path(@group, request: 'pass'), class: 'decline', method: :patch %>
-      <% else %>
-        <span class='decline'>You can't make it</span>
-        <%= button_to "I'm attending", group_rsvp_path(@group, request: 'new'), class: 'accept', method: :patch %>
-      <% end %>
-    <% else %>
-      <%= button_to "I'm attending", group_rsvp_path(@group, request: 'new'), class: 'accept' %>
-      <%= button_to "I can't make it", group_rsvp_path(@group, request: 'pass'), class: 'decline' %>
-    <% end %>
-  </section>
+<% if @group.next_location.notes.present? %>
+  <p class="notes">NOTICE: <%= @group.next_location.notes %></p>
 <% end %>
 
-
-<section class='main-section'>
-  <header>
-    <h1><%= @group.title %></h1>
-  </header>
-
-  <div class="after-header">
-    <% if @group.has_next_date? %>
-      <h2><%= @group.attendees.count %> Attending</h2>
-      <% if @group.attendees.any? %>
-        <% @group.attendees.each do |user| %>
-          <%= link_to user.name, user %>
+<% if @group.has_next_date? %>
+  <div class='centered'>
+    <div class="status">
+      There <%= @group.attendees.count == 1 ? 'is' : 'are' %> <%= pluralize(@group.attendees.count, 'person') %> attending the next game night on <%= next_date_string(@group) %> at <%= link_to @group.next_location.title, @group.next_location %>
+      <% if current_user.rsvped?(@group) %>
+        <% if current_user.attending?(@group) %>
+          <%= link_to "✓", group_rsvp_path(@group, request: 'new'), class: 'accept tooltip', title: 'I am attending', method: :patch %>
+          <%= link_to "X", group_rsvp_path(@group, request: 'pass'), class: 'decline pending tooltip', title: 'I can not attend', method: :patch %>
+        <% else %>
+          <%= link_to "✓", group_rsvp_path(@group, request: 'new'), class: 'accept pending tooltip', title: 'I can attend', method: :patch %>
+          <%= link_to "X", group_rsvp_path(@group, request: 'pass'), class: 'decline tooltip', title: "I am not attending", method: :patch %>
         <% end %>
+      <% else %>
+        <%= link_to "✓", group_rsvp_path(@group, request: 'new'), class: 'accept tooltip pending', title: 'I can attend', method: :post %>
+        <%= link_to "X", group_rsvp_path(@group, request: 'pass'), class: 'decline tooltip pending', title: 'I can not attend', method: :post %>
       <% end %>
-    <% else %>
-      No date scheduled. Add a location and set a date.
-    <% end %>
+    </section>
+    </div>
+
+
   </div>
-</section>
 
-<section class='main-section'>
-  <header class="title">
-    <h1>Members</h1>
-    <%= link_to '+', new_group_invitation_path(@group), class: 'add-link' %>
-  </header>
+<% else %>
+  <div class="info">No date scheduled. Add a location and set a date.</div>
+<% end %>
 
-  <div id="members">
-    <% @group.members.each do |member| %>
-      <div class="member">
-        <%= link_to member.name, member %>
-        <% if @group.has_next_date? %>
-          <%= rsvp_tag(member, @group) %>
+<div class="sections">
+
+  <div class="left-column">
+    <section class='column-section column'>
+      <header class="title">
+        <h1>Members</h1>
+        <%= link_to '+', new_group_invitation_path(@group), class: 'add-link' %>
+      </header>
+
+      <div id="members">
+        <% @group.members.each do |member| %>
+          <div class="member">
+            <%= link_to member.name, member %>
+            <% if @group.has_next_date? %>
+              <%= rsvp_tag(member, @group) %>
+            <% end %>
+          </div>
         <% end %>
       </div>
-    <% end %>
-  </div>
-</section>
+    </section>
 
+    <section class='column-section column'>
+      <header class="title">
+        <h1>Locations</h1>
+        <%= link_to '+', new_group_location_path(@group), class: 'add-link', data: { role: 'add-location' } %>
+      </header>
 
-<section class='main-section'>
-  <header class="title">
-    <h1>Locations</h1>
-    <%= link_to '+', new_group_location_path(@group), class: 'add-link', data: { role: 'add-location' } %>
-  </header>
-
-  <div id="locations">
-    <% if @group.locations.empty? %>
-      <strong>Add a location by clicking the plus in the upper right hand corner of this box.</strong>
-    <% end %>
-    <% @group.locations.each do |location| %>
-      <%= div_for location do %>
-        <%= link_to location.title, location %>
-      <% end %>
-    <% end %>
-  </div>
-</section>
-
-<section class="main-section">
-  <header>
-    <h1>Group Games</h1>
-  </header>
-
-  <div class="games">
-    <% if @group.boxes.any? %>
-      <% @group.boxes.each do |box| %>
-        <%= div_for(box, class: 'box-grid', data: { title: box.title }) do %>
-          <%= image_tag(box.image, width: 200) %>
+      <div id="locations">
+        <% if @group.locations.empty? %>
+          <strong>Add a location by clicking the plus in the upper right hand corner of this box.</strong>
         <% end %>
-      <% end %>
-    <% else %>
-      No boxes
-    <% end %>
+        <% @group.locations.each do |location| %>
+          <%= div_for location do %>
+            <%= link_to location.title, location %>
+          <% end %>
+        <% end %>
+      </div>
+    </section>
   </div>
-</section>
+
+  <section class="column-section">
+    <header>
+      <h1>Group Games</h1>
+    </header>
+
+    <div class="games">
+      <% if @group.boxes.any? %>
+        <% @group.boxes.each do |box| %>
+          <%= div_for(box, class: 'box-grid', data: { title: box.title }) do %>
+            <%= image_tag(box.image, width: 200) %>
+          <% end %>
+        <% end %>
+      <% else %>
+        No games added yet
+      <% end %>
+    </div>
+  </section>
+</div>

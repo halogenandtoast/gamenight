@@ -1,7 +1,9 @@
 <% if @location.has_next_date? %>
-  <span class="status">
-    Next Game Night: <%= @location.next_date.strftime("%B %d") %>
-  </span>
+  <div class="centered">
+    <span class="status">
+      The next game night here is on <%= @location.next_date.strftime("%B %d") %>
+    </span>
+  </div>
 <% end %>
 
 <section class='main-section'>
@@ -33,9 +35,9 @@
 </section>
 <section class="main-section">
 
-  <header>
+  <header class="title">
     <h1>Games</h1>
-    <%= link_to 'Add game', new_location_game_path(@location) %>
+    <%= link_to '+', new_location_game_path(@location), class: 'add-link' %>
   </header>
 
   <div class="games">
@@ -56,7 +58,9 @@
         <% end %>
       <% end %>
     <% else %>
-      No games yet.
+      <div class="centered">
+        No games yet.
+      </div>
     <% end %>
   </div>
 </section>
