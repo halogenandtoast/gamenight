@@ -28,7 +28,7 @@ Gamenight::Application.routes.draw do
     resources :locations, only: [:new, :create]
     resources :invitations, only: [:new, :create]
     resource :rsvp, only: [:create, :destroy, :update]
-    resources :votes, only: [:update]
+    resources :votes, only: [:update, :destroy]
     get "rsvp" => "rsvps#create"
     member do
       delete "leave" => "group_memberships#destroy"

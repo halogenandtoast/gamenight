@@ -7,6 +7,14 @@ class VotesController < ApplicationController
     redirect_to group
   end
 
+  def destroy
+    group = find_group
+    game = find_game
+    next_date = group.next_date
+    current_user.votes.find_by(group: group, game: game, voted_for: next_date).destroy
+    redirect_to group
+  end
+
   private
 
   def find_group
