@@ -53,14 +53,14 @@
     </section>
   </div>
 
-  <% if @group.voted_games.any? %>
+  <% if @group.games.any? %>
     <section class="column-section">
       <header class="title">
         <h1>Current Votes</h1>
       </header>
 
       <div class="games">
-        <% @group.voted_games.each do |game| %>
+        <% @group.games.each do |game| %>
           <%= div_for(game, class: 'box box-grid') do %>
             <%= image_tag(game.image, width: 200) %>
             <%= pluralize(@group.votes.where(game: game).count, 'vote') %>
