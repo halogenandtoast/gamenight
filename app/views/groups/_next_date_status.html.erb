@@ -1,0 +1,17 @@
+<div class='centered'>
+  <div class="status">
+    There <%= group.attendees.count == 1 ? 'is' : 'are' %> <strong><%= pluralize(group.attendees.count, 'person') %></strong> attending the next game night on <strong><%= next_date_string(group) %></strong> at <%= link_to group.next_location.title, group.next_location %>
+    <% if current_user.rsvped?(group) %>
+      <% if current_user.attending?(group) %>
+        <%= link_to "✓", group_rsvp_path(group, request: 'new'), class: 'accept tooltip', title: 'I am attending', method: :patch %>
+        <%= link_to "X", group_rsvp_path(group, request: 'pass'), class: 'decline pending tooltip', title: 'I can not attend', method: :patch %>
+      <% else %>
+        <%= link_to "✓", group_rsvp_path(group, request: 'new'), class: 'accept pending tooltip', title: 'I can attend', method: :patch %>
+        <%= link_to "X", group_rsvp_path(group, request: 'pass'), class: 'decline tooltip', title: "I am not attending", method: :patch %>
+      <% end %>
+    <% else %>
+      <%= link_to "✓", group_rsvp_path(group, request: 'new'), class: 'accept tooltip pending', title: 'I can attend', method: :post %>
+      <%= link_to "X", group_rsvp_path(group, request: 'pass'), class: 'decline tooltip pending', title: 'I can not attend', method: :post %>
+    <% end %>
+  </div>
+</div>

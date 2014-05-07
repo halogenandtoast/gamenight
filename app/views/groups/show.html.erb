@@ -7,27 +7,7 @@
 <% end %>
 
 <% if @group.has_next_date? %>
-  <div class='centered'>
-    <div class="status">
-      There <%= @group.attendees.count == 1 ? 'is' : 'are' %> <strong><%= pluralize(@group.attendees.count, 'person') %></strong> attending the next game night on <strong><%= next_date_string(@group) %></strong> at <%= link_to @group.next_location.title, @group.next_location %>
-      <% if current_user.rsvped?(@group) %>
-        <% if current_user.attending?(@group) %>
-          <%= link_to "✓", group_rsvp_path(@group, request: 'new'), class: 'accept tooltip', title: 'I am attending', method: :patch %>
-          <%= link_to "X", group_rsvp_path(@group, request: 'pass'), class: 'decline pending tooltip', title: 'I can not attend', method: :patch %>
-        <% else %>
-          <%= link_to "✓", group_rsvp_path(@group, request: 'new'), class: 'accept pending tooltip', title: 'I can attend', method: :patch %>
-          <%= link_to "X", group_rsvp_path(@group, request: 'pass'), class: 'decline tooltip', title: "I am not attending", method: :patch %>
-        <% end %>
-      <% else %>
-        <%= link_to "✓", group_rsvp_path(@group, request: 'new'), class: 'accept tooltip pending', title: 'I can attend', method: :post %>
-        <%= link_to "X", group_rsvp_path(@group, request: 'pass'), class: 'decline tooltip pending', title: 'I can not attend', method: :post %>
-      <% end %>
-    </section>
-    </div>
-
-
-  </div>
-
+  <%= render "next_date_status", group: @group %>
 <% else %>
   <div class="info">No date scheduled. Add a location and set a date.</div>
 <% end %>
@@ -73,6 +53,28 @@
     </section>
   </div>
 
+  <% if @group.voted_games.any? %>
+    <section class="column-section">
+      <header class="title">
+        <h1>Current Votes</h1>
+      </header>
+
+      <div class="games">
+        <% @group.voted_games.each do |game| %>
+          <%= div_for(game, class: 'box box-grid') do %>
+            <%= image_tag(game.image, width: 200) %>
+            <%= pluralize(@group.votes.where(game: game).count, 'vote') %>
+            <% if @group.votes.where(game: game, user: current_user).exists? %>
+              <%= link_to 'Unvote', group_vote_path(@group, game), method: :delete %>
+            <% else %>
+              <%= link_to 'Vote', group_vote_path(@group, game), method: :patch %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </section>
+  <% end %>
+
   <section class="column-section">
     <header class="title">
       <h1>Group Games</h1>
@@ -81,8 +83,13 @@
     <div class="games">
       <% if @group.boxes.any? %>
         <% @group.boxes.each do |box| %>
-          <%= div_for(box, class: 'box-grid', data: { title: box.title }) do %>
+          <%= div_for(box, class: 'box-grid') do %>
             <%= image_tag(box.image, width: 200) %>
+            <% if @group.votes.where(game: box.game, user: current_user).exists? %>
+              <%= link_to 'Unvote', group_vote_path(@group, box.game), method: :delete %>
+            <% else %>
+              <%= link_to 'Vote', group_vote_path(@group, box.game), method: :patch %>
+            <% end %>
           <% end %>
         <% end %>
       <% else %>

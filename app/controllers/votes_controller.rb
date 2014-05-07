@@ -1,9 +1,10 @@
 class VotesController < ApplicationController
-  def create
+  def update
     group = find_group
-    next_date = group.next_date
     game = find_game
-    current_user
+    next_date = group.next_date
+    current_user.votes.create(group: group, game: game, voted_for: next_date)
+    redirect_to group
   end
 
   private
@@ -13,6 +14,6 @@ class VotesController < ApplicationController
   end
 
   def find_game
-    @_game ||= Game.find(params[:game_id])
+    @_game ||= Game.find(params[:id])
   end
 end
