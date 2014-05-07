@@ -64,10 +64,12 @@
           <%= div_for(game, class: 'box box-grid') do %>
             <%= image_tag(game.image, width: 200) %>
             <%= pluralize(@group.votes.where(game: game).count, 'vote') %>
-            <% if @group.votes.where(game: game, user: current_user).exists? %>
-              <%= link_to 'Unvote', group_vote_path(@group, game), method: :delete %>
-            <% else %>
-              <%= link_to 'Vote', group_vote_path(@group, game), method: :patch %>
+            <% if current_user.attending?(@group) %>
+              <% if @group.votes.where(game: game, user: current_user).exists? %>
+                <%= link_to 'Unvote', group_vote_path(@group, game), method: :delete %>
+              <% else %>
+                <%= link_to 'Vote', group_vote_path(@group, game), method: :patch %>
+              <% end %>
             <% end %>
           <% end %>
         <% end %>
@@ -85,10 +87,12 @@
         <% @group.boxes.each do |box| %>
           <%= div_for(box, class: 'box-grid') do %>
             <%= image_tag(box.image, width: 200) %>
-            <% if @group.votes.where(game: box.game, user: current_user).exists? %>
-              <%= link_to 'Unvote', group_vote_path(@group, box.game), method: :delete %>
-            <% else %>
-              <%= link_to 'Vote', group_vote_path(@group, box.game), method: :patch %>
+            <% if current_user.attending?(@group) %>
+              <% if @group.votes.where(game: box.game, user: current_user).exists? %>
+                <%= link_to 'Unvote', group_vote_path(@group, box.game), method: :delete %>
+              <% else %>
+                <%= link_to 'Vote', group_vote_path(@group, box.game), method: :patch %>
+              <% end %>
             <% end %>
           <% end %>
         <% end %>
