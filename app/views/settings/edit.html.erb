@@ -1,0 +1,9 @@
+<%= form_for current_user, url: settings_path, method: :patch  do |form| %>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+  <div>
+    <%= form.submit "Update" %>
+  </div>
+<% end %>

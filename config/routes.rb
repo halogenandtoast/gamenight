@@ -14,6 +14,7 @@ Gamenight::Application.routes.draw do
   root "homes#show"
   resource :session, only: [:new, :create, :destroy]
   resources :users, only: [:show, :new, :create]
+  resource :settings, only: [:edit, :update]
   resource :dashboard, only: [:show]
 
   resources :games, only: [:new, :create]

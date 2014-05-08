@@ -135,6 +135,9 @@ nav.right {
   float: right;
   display: inline;
   ul, li { display: inline }
+  li {
+    margin-left: 20px;
+  }
 }
 }
 
