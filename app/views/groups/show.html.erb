@@ -53,7 +53,7 @@
     </section>
   </div>
 
-  <% if @voted_games.any? %>
+  <% if @voted_games.to_a.any? %>
     <section class="column-section">
       <header class="title">
         <h1>Current Votes</h1>

@@ -3,7 +3,7 @@ class VotesController < ApplicationController
     group = find_group
     game = find_game
     next_date = group.next_date
-    current_user.votes.create(group: group, game: game, voted_for: next_date)
+    current_user.votes.create(group: group, game: game, voted_for: next_date.to_date)
     redirect_to group
   end
 
@@ -11,7 +11,7 @@ class VotesController < ApplicationController
     group = find_group
     game = find_game
     next_date = group.next_date
-    current_user.votes.find_by(group: group, game: game, voted_for: next_date).destroy
+    current_user.votes.find_by(group: group, game: game, voted_for: next_date.to_date).destroy
     redirect_to group
   end
 
