@@ -249,9 +249,9 @@ header {
     }
     padding-bottom: 10px;
   }
-  .box:nth-child(5n) { @include omega(); }
-  .box:nth-child(5n+1) { clear: both; }
-  .box:nth-child(n+6) {
+  .box:nth-child(6n) { @include omega(); }
+  .box:nth-child(6n+1) { clear: both; }
+  .box:nth-child(n+7) {
     padding-top: 30px;
     a.remove {
       top: 10px;
