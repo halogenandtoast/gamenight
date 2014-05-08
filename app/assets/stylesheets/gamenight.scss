@@ -5,7 +5,7 @@ body {
 }
 
 .sections {
-  width: 735px;
+  width: 80%;
   margin: 0 auto;
 }
 
@@ -156,7 +156,7 @@ nav.right {
 }
 
 .column-section {
-  width: 494px;
+  width: calc(100% - 241px);
   float: right;
 }
 
