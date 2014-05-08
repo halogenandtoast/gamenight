@@ -3,7 +3,7 @@ module GroupsHelper
     if member.rsvped?(group)
       rsvped_tag(member, group)
     else
-      attending_tag("needs-rsvp", "#{member.name} ?")
+      attending_tag("needs-rsvp", "#{member.name}")
     end
   end
 
