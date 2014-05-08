@@ -11,7 +11,7 @@ class Group < ActiveRecord::Base
   has_many :attendees, through: :attending_rsvps, source: :user
 
   def games
-    voted_games.uniq
+    voted_games.alphabetical.uniq
   end
 
   def has_next_date?
