@@ -231,9 +231,9 @@ header {
       list-style: none;
       li {
         display: inline;
+      }
     }
   }
-}
 }
 
 .games {
@@ -246,18 +246,17 @@ header {
       list-style: none;
       margin: 0;
       padding: 0;
+    }
+    padding-bottom: 10px;
   }
-  padding-bottom: 10px;
-}
-.box:nth-child(4n) { @include omega(); }
-.box:nth-child(4n+1) { clear: both; }
-.box:nth-child(n+5) {
-  padding-top: 30px;
-  border-top: 2px solid #EEE;
-  a.remove {
-    top: 10px;
+  .box:nth-child(4n) { @include omega(); }
+  .box:nth-child(4n+1) { clear: both; }
+  .box:nth-child(n+5) {
+    padding-top: 30px;
+    a.remove {
+      top: 10px;
+    }
   }
-}
 }
 
 a.remove {
