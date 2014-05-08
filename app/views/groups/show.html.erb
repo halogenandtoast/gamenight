@@ -22,7 +22,25 @@
       </header>
 
       <div id="members">
-        <% @group.members.each do |member| %>
+        <% attending_members(@group).each do |member| %>
+          <div class="member">
+            <% if @group.has_next_date? %>
+              <%= rsvp_tag(member, @group) %>
+            <% else %>
+              <%= link_to member.name, member %>
+            <% end %>
+          </div>
+        <% end %>
+        <% non_attending_members(@group).each do |member| %>
+          <div class="member">
+            <% if @group.has_next_date? %>
+              <%= rsvp_tag(member, @group) %>
+            <% else %>
+              <%= link_to member.name, member %>
+            <% end %>
+          </div>
+        <% end %>
+        <% pending_members(@group).each do |member| %>
           <div class="member">
             <% if @group.has_next_date? %>
               <%= rsvp_tag(member, @group) %>
