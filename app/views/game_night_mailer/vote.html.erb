@@ -1,0 +1,15 @@
+<p>Hey <%= @member.name %>,</p>
+
+<p>Just a reminder to vote on which games you'd like to have brought to game night tomorrow. Please vote before 6am Wednesday morning so the games can be brought in if need be.</p>
+
+<% unless @member.rsvped?(@group) %>
+  <p>Also you haven't RSVP'd yet, so here's some links: </p>
+
+  <div style="padding: 10px; margin: 10px;">
+    <%= link_to 'Yes', group_rsvp_url(@group, request: 'new', token: @member.token) %>
+  </div>
+
+  <div style="padding: 10px; margin: 10px;">
+    <%= link_to 'No', group_rsvp_url(@group, request: 'pass', token: @member.token) %>
+  </div>
+<% end %>

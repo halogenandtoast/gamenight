@@ -29,6 +29,10 @@ class Group < ActiveRecord::Base
     next_location.suggested_games
   end
 
+  def emails
+    members.map(&:email)
+  end
+
   private
 
   def next_dates

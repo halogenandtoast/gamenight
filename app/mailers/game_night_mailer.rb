@@ -6,4 +6,10 @@ class GameNightMailer < ActionMailer::Base
     @slacker = slacker
     mail(to: @slacker.email)
   end
+
+  def vote(member, group)
+    @group = group
+    @member = member
+    mail(to: @member.email)
+  end
 end
