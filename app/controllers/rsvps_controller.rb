@@ -1,6 +1,6 @@
 class RsvpsController < ApplicationController
   skip_before_filter :verify_authenticity_token, only: [:create]
-
+  skip_before_filter :require_login, only: [:create]
   before_filter :ensure_login, only: [:create]
 
   def create
