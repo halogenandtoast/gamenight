@@ -80,7 +80,9 @@
       <div class="games">
         <% @voted_games.each do |game| %>
           <%= div_for(game, class: 'box box-grid') do %>
-            <%= image_tag(game.image, width: 200) %>
+            <%= link_to "http://boardgamegeek.com/boardgame/#{game.bgg_id}" do %>
+              <%= image_tag(game.image, width: 200) %>
+            <% end %>
             <%= pluralize(@group.votes.where(game: game).count, 'vote') %>
             <% if current_user.attending?(@group) %>
               <% if @group.votes.where(game: game, user: current_user).exists? %>
@@ -104,7 +106,9 @@
       <% if @games.any? %>
         <% @games.each do |game| %>
           <%= div_for(game, class: 'box box-grid') do %>
-            <%= image_tag(game.image, width: 200) %>
+            <%= link_to "http://boardgamegeek.com/boardgame/#{game.bgg_id}" do %>
+              <%= image_tag(game.image, width: 200) %>
+            <% end %>
             <% if current_user.attending?(@group) %>
               <% if @group.votes.where(game: game, user: current_user).exists? %>
                 <%= link_to 'Unvote', group_vote_path(@group, game), method: :delete %>

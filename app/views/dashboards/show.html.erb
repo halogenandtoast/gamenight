@@ -27,7 +27,9 @@
       <% if @boxes.any? %>
         <% @boxes.each do |box| %>
           <%= div_for(box) do %>
-            <%= image_tag(box.image, width: 200) %>
+            <%= link_to "http://boardgamegeek.com/boardgame/#{box.bgg_id}" do %>
+              <%= image_tag(box.image, width: 200) %>
+            <% end %>
 
             <%= form_for box, url: assign_box_path(box), namespace: box.title.parameterize, remote: true, method: :patch do |form| %>
               <%= form.label :location_id, "at" %>

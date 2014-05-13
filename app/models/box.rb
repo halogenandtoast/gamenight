@@ -7,6 +7,7 @@ class Box < ActiveRecord::Base
     :min_players,
     :max_players,
     :suggested_players,
+    :bgg_id,
     :playing_time, to: :game
 
   def self.alphabetical
