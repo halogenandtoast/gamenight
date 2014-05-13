@@ -4,7 +4,7 @@ class Game < ActiveRecord::Base
   end
 
   def image
-    data_value("missing.png") { data["image"][0] }
+    data_value("missing.png") { data["thumbnail"][0] }
   end
 
   def min_players
