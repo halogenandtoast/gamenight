@@ -1,4 +1,4 @@
-task :notify => :environment do
+task notify: :environment do
   Group.all.includes(:locations, :members).find_each do |group|
     if group.has_next_date? && group.next_date.to_date == Date.today
       slackers = group.members - group.rsvped_members
@@ -9,7 +9,7 @@ task :notify => :environment do
   end
 end
 
-task :votes => :environment do
+task votes: :environment do
   Group.all.includes(:locations, :members).find_each do |group|
     if group.has_next_date? && group.next_date.to_date == Date.tomorrow
       group.members.each do |member|

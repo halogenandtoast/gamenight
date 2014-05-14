@@ -1,8 +1,14 @@
 class Rsvp < ActiveRecord::Base
+  ATTENDING = 'new'
+
   belongs_to :user
   belongs_to :group
 
+  def self.attending
+    where(request: ATTENDING)
+  end
+
   def attending?
-    request != 'pass'
+    request == ATTENDING
   end
 end

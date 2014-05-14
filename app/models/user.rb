@@ -22,11 +22,6 @@ class User < ActiveRecord::Base
   end
 
   def attending? group
-    rsvp = rsvps.find_by(group_id: group.id)
-    rsvp && rsvp.date == group.next_date.to_date && rsvp.attending?
-  end
-
-  def inspect
-    email
+    rsvps.attending.where(group_id: group.id, date: group.next_date.to_date).exists?
   end
 end
