@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  ACTIVE = 'active'
+
   has_many :boxes, as: :owner, dependent: :destroy
   has_many :games, through: :boxes
   has_many :group_memberships, dependent: :destroy
@@ -8,6 +10,9 @@ class User < ActiveRecord::Base
 
   has_many :groups, through: :group_memberships
   has_many :locations, through: :groups
+
+  validates :email, presence: true, uniqueness: true
+  validates :password_digest, presence: true, if: :active?
 
   def add_game game
     boxes.create(title: game.title, game: game)
@@ -23,5 +28,9 @@ class User < ActiveRecord::Base
 
   def attending? group
     rsvps.attending.where(group_id: group.id, date: group.next_date.to_date).exists?
+  end
+
+  def active?
+    status == ACTIVE
   end
 end

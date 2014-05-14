@@ -1,0 +1,18 @@
+<section class="main-section">
+  <header class="title">
+    <h1>Reset your password</h1>
+  </header>
+
+  <p>To be emailed a link to reset your password, please enter your email address.</p>
+
+  <%= form_for @password_reset do |form| %>
+    <div class="text-field">
+      <%= form.label :email %>
+      <%= form.email_field :email %>
+    </div>
+
+    <div class="submit-field">
+      <%= form.submit 'Reset Password' %>
+    </div>
+  <% end %>
+</section>

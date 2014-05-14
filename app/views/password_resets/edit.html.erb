@@ -1,0 +1,22 @@
+<% if @user.errors.any? %>
+  <p class="error"><%= @user.errors.full_messages.to_sentence %></p>
+<% end %>
+
+<section class="main-section">
+  <header class="title">
+    <h1>Change your password</h1>
+  </header>
+
+  <p>Your password has been reset. Choose a new password below.</p>
+
+  <%= form_for [@user, @password_reset] do |form| %>
+    <div class="password-field">
+      <%= form.label :password %>
+      <%= form.password_field :password %>
+    </div>
+
+    <div class="submit-field">
+      <%= form.submit 'Update Password' %>
+    </div>
+  <% end %>
+</section>

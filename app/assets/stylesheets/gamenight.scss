@@ -119,6 +119,15 @@ p.notes {
   padding: 10px;
 }
 
+.error {
+  font-weight: bold;
+  text-align: center;
+  margin: 0 auto;
+  background-color: #000;
+  color: #FFF;
+  padding: 10px;
+}
+
 header.main {
   background: #FFF;
   color: #EEE;
@@ -162,6 +171,11 @@ nav.right {
 
 .main-section {
   width: 80%;
+  p {
+    margin: 10px;
+    margin-bottom: 0;
+    color: #666;
+  }
 }
 
 .column-section, .main-section {
@@ -330,4 +344,22 @@ form {
 
 .group:nth-of-type(1) {
   border: none;
+}
+
+footer {
+  nav {
+    margin-top: 10px;
+    margin-right: 10px;
+    float: right;
+    a {
+      background: #5E98A3;
+      border-radius: 3px;
+      padding: 10px;
+      color: #FFF;
+      &:hover {
+        background: darken(#5E98A3, 20);
+        color: #FFF;
+      }
+    }
+  }
 }

@@ -7,6 +7,10 @@ module Constraints
 end
 
 Gamenight::Application.routes.draw do
+  resources :users, only: [:none] do
+    resources :password_resets, only: [:edit, :update]
+  end
+  resources :password_resets, only: [:new, :create]
   constraints Constraints::SignedIn.new do
     get "/" => "dashboards#show", as: :signed_in_root
   end

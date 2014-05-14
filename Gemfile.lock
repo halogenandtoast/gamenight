@@ -97,10 +97,12 @@ GEM
     mime-types (1.25.1)
     mini_portile (0.5.3)
     minitest (5.3.3)
-    monban (0.0.13)
+    monban (0.0.14)
       bcrypt
       rails
       warden
+    monban-generators (0.0.2)
+      monban (~> 0.0.12)
     multi_json (1.10.0)
     multi_xml (0.5.5)
     neat (1.5.1)
@@ -225,6 +227,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   monban
+  monban-generators
   neat
   newrelic_rpm
   normalize-rails (~> 2.1.3)
