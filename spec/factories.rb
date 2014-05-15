@@ -15,4 +15,10 @@ FactoryGirl.define do
   factory :game do
     title "Game"
   end
+
+  factory :vote do
+    voted_for "2020-12-11"
+    user
+    game
+  end
 end

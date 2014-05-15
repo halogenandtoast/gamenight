@@ -18,17 +18,19 @@ class RsvpsController < ApplicationController
   end
 
   def destroy
-    group = find_group
-    rsvp = current_user.rsvps.find_by(group_id: group.id)
-    rsvp.date = nil
-    rsvp.save
-    redirect_to group
+    Decline.new(rsvp)
+    redirect_to find_group
   end
 
   private
 
+  def find_rsvp
+    group = find_group
+    current_user.rsvps.find_by(group_id: group.id)
+  end
+
   def find_group
-    Group.find(params[:group_id])
+    @group ||= Group.find(params[:group_id])
   end
 
   def ensure_login
