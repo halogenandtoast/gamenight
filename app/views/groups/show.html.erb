@@ -84,13 +84,7 @@
               <%= image_tag(game.image, width: 200) %>
             <% end %>
             <%= pluralize(@group.votes.where(game: game).count, 'vote') %>
-            <% if current_user.attending?(@group) %>
-              <% if @group.votes.where(game: game, user: current_user).exists? %>
-                <%= link_to 'Unvote', group_vote_path(@group, game), method: :delete %>
-              <% else %>
-                <%= link_to 'Vote', group_vote_path(@group, game), method: :patch %>
-              <% end %>
-            <% end %>
+            <%= vote_link(@group, game) %>
           <% end %>
         <% end %>
       </div>
@@ -109,13 +103,7 @@
             <%= link_to "http://boardgamegeek.com/boardgame/#{game.bgg_id}" do %>
               <%= image_tag(game.image, width: 200) %>
             <% end %>
-            <% if current_user.attending?(@group) %>
-              <% if @group.votes.where(game: game, user: current_user).exists? %>
-                <%= link_to 'Unvote', group_vote_path(@group, game), method: :delete %>
-              <% else %>
-                <%= link_to 'Vote', group_vote_path(@group, game), method: :patch %>
-              <% end %>
-            <% end %>
+            <%= vote_link(@group, game) %>
           <% end %>
         <% end %>
       <% else %>

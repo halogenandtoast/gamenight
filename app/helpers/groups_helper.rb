@@ -1,4 +1,14 @@
 module GroupsHelper
+  def vote_link(group, game)
+    if current_user.attending?(group) && group.next_date != Date.today
+      if group.votes.where(game: game, user: current_user).exists?
+        link_to 'Unvote', group_vote_path(group, game), method: :delete
+      else
+        link_to 'Vote', group_vote_path(group, game), method: :patch
+      end
+    end
+  end
+
   def rsvp_tag(member, group)
     if member.rsvped?(group)
       rsvped_tag(member, group)
