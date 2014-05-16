@@ -11,9 +11,4 @@ class Rsvp < ActiveRecord::Base
   def attending?
     request == ATTENDING
   end
-
-  def destroy
-    user.votes.where(group: group).destroy_all
-    super
-  end
 end
