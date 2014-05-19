@@ -268,7 +268,7 @@ header {
   .box:nth-child(n+7) {
     padding-top: 30px;
     a.remove {
-      top: 10px;
+      top: 15px;
     }
   }
 }
@@ -276,11 +276,12 @@ header {
 a.remove {
   @include hide-text;
   display: block;
-  width: 42px;
-  height: 42px;
+  width: 30px;
+  height: 30px;
   background: asset-url("close.png") top left no-repeat;
-  top: -20px;
-  right: -20px;
+  background-size: 30px 30px;
+  top: -15px;
+  right: -15px;
   position: absolute;
 }
 
