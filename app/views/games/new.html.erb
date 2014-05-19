@@ -1,12 +1,17 @@
-<%= form_for @game do |form| %>
-  <%= form.label :title %>
-  <%= form.text_field :title %>
-  <%= form.hidden_field :id %>
-  <% if params[:location_id] %>
-    <%= hidden_field_tag :location_id, params[:location_id] %>
+<section class="main-section">
+  <header class="title">
+    <h1>Add Game</h1>
+  </header>
+  <%= form_for @game do |form| %>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+    <%= form.hidden_field :id %>
+    <% if params[:location_id] %>
+      <%= hidden_field_tag :location_id, params[:location_id] %>
+    <% end %>
+    <%= form.submit 'Add' %>
   <% end %>
-  <%= form.submit 'Add' %>
-<% end %>
+</section>
 
 <script type="text/javascript">
   $("#game_title").autocomplete({
