@@ -6,15 +6,10 @@
   <div class="games">
     <% if @user.boxes.any? %>
       <% @user.boxes.each do |box| %>
-        <%= div_for(box, data: { title: box.title, href: my_box_path(box), id: box.id }) do %>
-          <%= link_to image_tag(box.image, width: 200), my_box_path(box) %>
-
-          <ul class="box-contents">
-            <% box.games.each do |game| %>
-              <li><%= game.title %></li>
-            <% end %>
-          </ul>
-
+        <%= div_for(box) do %>
+          <%= link_to "http://boardgamegeek.com/boardgame/#{box.bgg_id}" do %>
+            <%= image_tag(box.image, width: 200) %>
+          <% end %>
         <% end %>
       <% end %>
     <% else %>
