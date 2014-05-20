@@ -7,6 +7,7 @@ module Constraints
 end
 
 Gamenight::Application.routes.draw do
+  resource :bgg_import, only: :create
   resources :users, only: [:none] do
     resources :password_resets, only: [:edit, :update]
   end

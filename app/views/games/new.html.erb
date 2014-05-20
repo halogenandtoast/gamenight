@@ -13,6 +13,19 @@
   <% end %>
 </section>
 
+<section class="main-section">
+  <header class="title">
+    <h1>Import BoardGameGeek Collection</h1>
+  </header>
+
+  <p><strong>This will take some time to complete</strong></p>
+
+  <%= form_for(:bgg_import, url: bgg_import_path) do |form| %>
+    <%= form.text_field :bgg_username, value: current_user.bgg_username, placeholder: "BoardGameGeek username" %>
+    <%= form.submit "Import collection" %>
+  <% end %>
+</section>
+
 <script type="text/javascript">
   $("#game_title").autocomplete({
     source: '/search/games',

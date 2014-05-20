@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140514134021) do
+ActiveRecord::Schema.define(version: 20140520032339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,8 @@ ActiveRecord::Schema.define(version: 20140514134021) do
     t.string   "bgg_id"
     t.string   "year"
   end
+
+  add_index "games", ["bgg_id"], name: "index_games_on_bgg_id", unique: true, using: :btree
 
   create_table "group_memberships", force: true do |t|
     t.integer  "user_id"
@@ -109,6 +111,7 @@ ActiveRecord::Schema.define(version: 20140514134021) do
     t.string   "name"
     t.string   "status",          default: "active"
     t.string   "token"
+    t.string   "bgg_username"
   end
 
   create_table "votes", force: true do |t|

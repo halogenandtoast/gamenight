@@ -40,7 +40,11 @@
           <% end %>
         <% end %>
       <% else %>
-        No games yet.
+        No games yet. You can import your collection by using your BGG username. <strong>This will take some time.</strong>
+        <%= form_for(:bgg_import, url: bgg_import_path) do |form| %>
+          <%= form.text_field :bgg_username, value: current_user.bgg_username, placeholder: "BoardGameGeek username" %>
+          <%= form.submit "Import collection" %>
+        <% end %>
       <% end %>
     </div>
   </section>
