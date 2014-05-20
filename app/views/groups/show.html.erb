@@ -23,13 +23,13 @@
 
       <div id="members">
         <% attending_members(@group).each do |member| %>
-          <div class="member">
+          <%= link_to member, class: "member" do %>
             <% if @group.has_next_date? %>
               <%= rsvp_tag(member, @group) %>
             <% else %>
               <%= link_to member.name, member %>
             <% end %>
-          </div>
+          <% end %>
         <% end %>
         <% non_attending_members(@group).each do |member| %>
           <div class="member">

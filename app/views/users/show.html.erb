@@ -4,8 +4,8 @@
   </header>
 
   <div class="games">
-    <% if @user.boxes.any? %>
-      <% @user.boxes.each do |box| %>
+    <% if @boxes.any? %>
+      <% @boxes.each do |box| %>
         <%= div_for(box) do %>
           <%= link_to "http://boardgamegeek.com/boardgame/#{box.bgg_id}" do %>
             <%= image_tag(box.image, width: 200) %>
