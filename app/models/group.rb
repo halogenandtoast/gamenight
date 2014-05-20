@@ -8,6 +8,7 @@ class Group < ActiveRecord::Base
   has_many :voted_games, -> { group("games.id").order("count(games.id) DESC") }, through: :votes, source: :game
   has_many :rsvped_members, through: :rsvps, source: :user
   has_many :attending_rsvps, -> (group) { where("date = ? AND request != 'pass'", group.next_date.to_date) }, { class_name: 'Rsvp' }
+  has_many :passers, -> (group) { where("date = ? AND request = 'pass'", group.next_date.to_date) }, { class_name: 'Rsvp' }
   has_many :attendees, through: :attending_rsvps, source: :user
   has_many :games, through: :boxes
 

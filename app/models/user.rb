@@ -23,11 +23,13 @@ class User < ActiveRecord::Base
   end
 
   def rsvped? group
-    rsvps.where(group_id: group.id, date: group.next_date.to_date).exists?
+    @rsvped ||= {}
+    @rsvped[group] ||= rsvps.where(group_id: group.id, date: group.next_date.to_date).exists?
   end
 
   def attending? group
-    rsvps.attending.where(group_id: group.id, date: group.next_date.to_date).exists?
+    @attending ||= {}
+    @attending[group] ||= rsvps.attending.where(group_id: group.id, date: group.next_date.to_date).exists?
   end
 
   def active?

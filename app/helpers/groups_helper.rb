@@ -1,7 +1,7 @@
 module GroupsHelper
   def vote_link(group, game)
-    if current_user.attending?(group) && group.next_date != Date.today
-      if group.votes.where(game: game, user: current_user).exists?
+    if group.rsvps.any? { |rsvp| rsvp.user_id == current_user.id } && group.next_date != Date.today
+      if group.votes.any? { |vote| vote.game_id == game.id && vote.user_id == current_user.id }
         link_to 'Unvote', group_vote_path(group, game), method: :delete
       else
         link_to 'Vote', group_vote_path(group, game), method: :patch
@@ -10,7 +10,7 @@ module GroupsHelper
   end
 
   def rsvp_tag(member, group)
-    if member.rsvped?(group)
+    if group.rsvps.any? { |rsvp| rsvp.user_id == member.id }
       rsvped_tag(member, group)
     else
       attending_tag("needs-rsvp", "#{member.name}")
@@ -40,14 +40,14 @@ module GroupsHelper
   end
 
   def attending_members(group)
-    group.members.select { |member| group.rsvps.where(user: member, request: 'new').exists? }
+    group.attendees
   end
 
   def non_attending_members(group)
-    group.members.select { |member| group.rsvps.where(user: member, request: 'pass').exists? }
+    group.passers
   end
 
   def pending_members(group)
-    group.members.select { |member| !group.rsvps.where(user: member).exists? }
+    group.members - group.rsvped_members
   end
 end

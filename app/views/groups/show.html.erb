@@ -83,7 +83,7 @@
             <%= link_to "http://boardgamegeek.com/boardgame/#{game.bgg_id}" do %>
               <%= image_tag(game.image, width: 200) %>
             <% end %>
-            <%= pluralize(@group.votes.where(game: game).count, 'vote') %>
+            <%= pluralize(@group.votes.to_a.count { |vote| vote.game_id == game.id }, 'vote') %>
             <%= vote_link(@group, game) %>
           <% end %>
         <% end %>
