@@ -13,6 +13,14 @@ class Group < ActiveRecord::Base
   has_many :attendees, through: :attending_rsvps, source: :user
   has_many :games, through: :boxes
 
+  def voted_games
+    if has_next_date?
+      super
+    else
+      Game.none
+    end
+  end
+
   def has_next_date?
     locations.any? { |location| location.has_next_date? }
   end
