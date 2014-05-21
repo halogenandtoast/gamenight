@@ -21,6 +21,12 @@ class Group < ActiveRecord::Base
     end
   end
 
+  def notes
+    if next_location
+      next_location.notes
+    end
+  end
+
   def has_next_date?
     locations.any? { |location| location.has_next_date? }
   end

@@ -2,8 +2,8 @@
   <h1><%= @group.title %></h1>
 </header>
 
-<% if @group.next_location.notes.present? %>
-  <p class="notes">NOTICE: <%= @group.next_location.notes %></p>
+<% if @group.notes.present? %>
+  <p class="notes">NOTICE: <%= @group.notes %></p>
 <% end %>
 
 <% if @group.has_next_date? %>
