@@ -21,6 +21,31 @@ class Group < ActiveRecord::Base
     end
   end
 
+  def attendees
+    if has_next_date?
+      super
+    else
+      User.none
+    end
+  end
+
+  def passers
+    if has_next_date?
+      super
+    else
+      User.none
+    end
+  end
+
+  def rsvped_members
+    if has_next_date?
+      super
+    else
+      User.none
+    end
+  end
+
+
   def notes
     if next_location
       next_location.notes
