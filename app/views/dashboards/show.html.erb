@@ -10,7 +10,7 @@
         <% current_user.groups.each do |group| %>
           <%= div_for(group) do %>
             <%= link_to group.title, group, class: 'group-link' %>
-            <%= link_to "Leave group", [:leave, group], method: :delete, confirm: "Are you sure you want to leave #{group.title}", class: 'group-leave-link' %>
+            <%= link_to "Leave group", [:leave, group], method: :delete, data: { confirm: "Are you sure you want to leave #{group.title}" }, class: 'group-leave-link' %>
           <% end %>
         <% end %>
       </div>
