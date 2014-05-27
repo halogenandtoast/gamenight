@@ -10,6 +10,6 @@ class SettingsController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :bgg_username)
+    params.require(:user).permit(:name, :email, :bgg_username)
   end
 end
