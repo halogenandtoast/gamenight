@@ -33,14 +33,24 @@ class Location < ActiveRecord::Base
   end
 
   def has_starts_on_in_future?
-    starts_on.present? && starts_on >= Date.today
+    starts_on.present? && starts_on >= Date.current.to_date
   end
 
   def next_date
     if schedule.present?
-      schedule.occurs_at?(Date.today) ? Date.today : schedule.next_occurrence
+      next_scheduled_date
     else
       starts_on
+    end
+  end
+
+  private
+
+  def next_scheduled_date
+    if schedule.occurs_at?(Date.today)
+      Date.today
+    else
+      schedule.next_occurrence
     end
   end
 end

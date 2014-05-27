@@ -1,6 +1,6 @@
 module GroupsHelper
   def vote_link(group, game)
-    if group.rsvps.any? { |rsvp| rsvp.user_id == current_user.id } && group.next_date != Date.today
+    if group.rsvps.any? { |rsvp| rsvp.user_id == current_user.id } && group.next_date != Time.zone.today
       if group.votes.any? { |vote| vote.game_id == game.id && vote.user_id == current_user.id }
         link_to 'Unvote', group_vote_path(group, game), method: :delete
       else
