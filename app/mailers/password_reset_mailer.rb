@@ -1,5 +1,5 @@
 class PasswordResetMailer < ActionMailer::Base
-  default from: "noreply@boardgamenight.herokuapp.com"
+  default from: "Board Game Night <noreply@gamenig.ht>"
 
   def change_password(password_reset)
     @password_reset = password_reset
