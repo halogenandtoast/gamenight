@@ -4,7 +4,7 @@ class Game < ActiveRecord::Base
   end
 
   def image
-    data_value("missing.png") { data["thumbnail"][0] }
+    data_value("missing.jpg") { thumbnails[0] }
   end
 
   def min_players
@@ -28,6 +28,10 @@ class Game < ActiveRecord::Base
   end
 
   private
+
+  def thumbnails
+    data["thumbnail"] || ["missing.jpg"]
+  end
 
   def poll_data
     @poll_data ||= begin
