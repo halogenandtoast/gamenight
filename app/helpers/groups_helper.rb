@@ -18,13 +18,7 @@ module GroupsHelper
   end
 
   def next_date_string(group)
-    if group.next_date.to_date == Time.zone.today
-      "today"
-    elsif group.next_date.to_date == Time.zone.today + 1
-      "tomorrow"
-    else
-      group.next_date.strftime("%B %d")
-    end
+    EventDateFormatter.new(group).format
   end
 
   def rsvped_tag(member, group)

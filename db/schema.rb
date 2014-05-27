@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140520032339) do
+ActiveRecord::Schema.define(version: 20140527150553) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 20140520032339) do
     t.text     "recurrence_rules"
     t.date     "starts_on"
     t.text     "notes"
+    t.time     "starts_at"
   end
 
   add_index "locations", ["group_id"], name: "index_locations_on_group_id", using: :btree

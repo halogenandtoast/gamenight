@@ -60,6 +60,10 @@ class Group < ActiveRecord::Base
     next_location.next_date
   end
 
+  def next_time
+    next_location.starts_at || NoTime.new
+  end
+
   def next_location
     locations.
       select { |location| location.has_next_date? }.

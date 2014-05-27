@@ -31,6 +31,6 @@ class LocationsController < ApplicationController
   end
 
   def location_params
-    params.require(:location).permit(:title, :recurrence_rules, :starts_on, :notes)
+    params.require(:location).permit(:title, :recurrence_rules, :starts_at, :starts_on, :notes)
   end
 end
