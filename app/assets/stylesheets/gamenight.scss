@@ -277,6 +277,11 @@ header {
   }
 }
 
+.edit_box {
+  padding: 0;
+  margin: 0;
+}
+
 a.remove {
   @include hide-text;
   display: block;

@@ -29,11 +29,11 @@
           <%= div_for(box) do %>
             <%= link_to "http://boardgamegeek.com/boardgame/#{box.bgg_id}" do %>
               <%= image_tag(box.image, width: 200) %>
+              <%= box.title %>
             <% end %>
 
             <%= form_for box, url: assign_box_path(box), namespace: box.title.parameterize, remote: true, method: :patch do |form| %>
-              <%= form.label :location_id, "at" %>
-              <%= form.select :location_id, current_user.locations.map { |location| [location.title, location.id] }, { include_blank: true }, { class: 'box-location-field' } %>
+              <%= form.select :location_id, current_user.locations.map { |location| ["at #{location.title}", location.id] }, { include_blank: true }, { class: 'box-location-field' } %>
             <% end %>
 
             <%= link_to "Remove", box, method: :delete, class: "remove", data: { confirm: "Are you sure?" } %>

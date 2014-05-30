@@ -82,6 +82,7 @@
           <%= div_for(game, class: 'box box-grid') do %>
             <%= link_to "http://boardgamegeek.com/boardgame/#{game.bgg_id}" do %>
               <%= image_tag(game.image, width: 200) %>
+              <%= game.title %>
             <% end %>
             <%= pluralize(@group.votes.to_a.count { |vote| vote.game_id == game.id }, 'vote') %>
             <%= vote_link(@group, game) %>
@@ -102,6 +103,7 @@
           <%= div_for(game, class: 'box box-grid') do %>
             <%= link_to "http://boardgamegeek.com/boardgame/#{game.bgg_id}" do %>
               <%= image_tag(game.image, width: 200) %>
+              <%= game.title %>
             <% end %>
             <%= vote_link(@group, game) %>
           <% end %>
