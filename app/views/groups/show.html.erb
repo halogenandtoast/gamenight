@@ -103,12 +103,13 @@
   <section class="column-section">
     <header class="title">
       <h1>Group Games</h1>
+      <input class="group-search" placeholder="Filter games" />
     </header>
 
-    <div class="games">
+    <ul class="games list">
       <% if @games.any? %>
         <% @games.each do |game| %>
-          <%= div_for(game, class: 'box box-grid') do %>
+          <%= content_tag_for(:li, game, class: 'box box-grid') do %>
             <div class="image">
               <%= link_to "http://boardgamegeek.com/boardgame/#{game.bgg_id}" do %>
                 <%= image_tag(game.image, width: 75) %>
@@ -127,6 +128,17 @@
       <% else %>
         No games added yet
       <% end %>
-    </div>
+    </ul>
   </section>
 </div>
+
+<script type="text/javascript">
+  $('.group-search').on( "keyup", function(event) {
+    if($('.group-search').val() == "") {
+      $(".list li").show();
+    } else {
+      $(".list li:has(header:contains('"+$(".group-search").val()+"'))").show();
+      $(".list li:not(:has(header:contains('"+$(".group-search").val()+"')))").hide();
+    }
+  } );
+</script>

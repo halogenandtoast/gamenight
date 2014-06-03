@@ -17,23 +17,24 @@
     </section>
   </div>
 
-  <section class="column-section">
+  <section class="column-section games-list">
     <header class='title'>
       <h1>My Games</h1>
+      <input class="search" placeholder="Filter games" />
       <%= link_to "+", new_game_path, class: 'add-link', data: { role: 'add-game' } %>
     </header>
 
-    <div class="games">
+    <ul class="games list">
       <% if @boxes.any? %>
         <% @boxes.each do |box| %>
-          <%= div_for(box) do %>
+          <%= content_tag_for(:li, box) do %>
             <div class="image">
               <%= link_to "http://boardgamegeek.com/boardgame/#{box.bgg_id}" do %>
                 <%= image_tag(box.image, width: 75) %>
               <% end %>
             </div>
 
-            <header>
+            <header class="title">
               <%= box.title %>
             </header>
 
@@ -52,7 +53,7 @@
           <%= form.submit "Import collection" %>
         <% end %>
       <% end %>
-    </div>
+    </ul>
   </section>
 </div>
 
@@ -60,4 +61,13 @@
   $(".box-location-field").on("change", function() {
     $(this.form).trigger("submit")
   });
+  $('.search').on( "keyup", function(event) {
+    if($('.search').val() == "") {
+      $(".list li").show();
+    } else {
+      $(".list li:has(header:contains('"+$(".search").val()+"'))").show();
+      $(".list li:not(:has(header:contains('"+$(".search").val()+"')))").hide();
+    }
+  } );
+
 </script>

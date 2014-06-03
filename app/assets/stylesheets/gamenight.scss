@@ -4,6 +4,15 @@ body {
   color: #555;
 }
 
+.search {
+  float: right;
+  margin-right: 50px;
+}
+
+.group-search {
+  float: right;
+}
+
 a.member {
   display: block;
 }
@@ -259,12 +268,15 @@ header {
     padding: 10px;
     @include clearfix;
     clear: both;
+    border-bottom: 1px solid #EEE;
     .image {
       float: left;
       margin-right: 10px;
     }
     header {
+      display: inline;
       padding: 0;
+      border-bottom: 0;
     }
     aside {
       form {
@@ -273,9 +285,6 @@ header {
       }
       float: right;
     }
-  }
-  .box:nth-of-type(2n) {
-    background: #EEE;
   }
 }
 

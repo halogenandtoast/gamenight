@@ -15,4 +15,5 @@
 //= require jquery.ui.all
 //= require turbolinks
 //= require recurring_select
+//= require list
 //= require_tree .

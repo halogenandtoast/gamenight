@@ -19,6 +19,7 @@ gem 'bitters'
 gem 'font-awesome-rails', '~> 4.0.3.1'
 gem 'newrelic_rpm'
 gem "rack-timeout"
+gem 'listjs-rails'
 
 group :development do
   gem 'quiet_assets'
