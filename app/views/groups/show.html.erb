@@ -94,11 +94,13 @@
 
 <script type="text/javascript">
   $('.group-search').on( "keyup", function(event) {
-    if($('.group-search').val() == "") {
+    var value = $(".group-search").val();
+    if(value == "") {
       $(".list li").show();
     } else {
-      $(".list li:has(header:contains('"+$(".group-search").val()+"'))").show();
-      $(".list li:not(:has(header:contains('"+$(".group-search").val()+"')))").hide();
+      var value = $
+      $(".list li:has(header:contains('"+value+"'))").show();
+      $(".list li:not(:has(header:contains('"+value+"')))").hide();
     }
   } );
 </script>

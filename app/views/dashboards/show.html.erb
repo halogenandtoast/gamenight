@@ -54,11 +54,12 @@
     $(this.form).trigger("submit")
   });
   $('.search').on( "keyup", function(event) {
-    if($('.search').val() == "") {
+    var value = $(".search").val();
+    if(value == "") {
       $(".list li").show();
     } else {
-      $(".list li:has(header:contains('"+$(".search").val()+"'))").show();
-      $(".list li:not(:has(header:contains('"+$(".search").val()+"')))").hide();
+      $(".list li:has(header:contains('"+value+"'))").show();
+      $(".list li:not(:has(header:contains('"+value+"')))").hide();
     }
   } );
 
