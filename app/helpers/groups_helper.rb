@@ -33,15 +33,8 @@ module GroupsHelper
     content_tag(:span, class: "attending-tag #{css_class}") { title }
   end
 
-  def attending_members(group)
-    group.attendees
-  end
-
-  def non_attending_members(group)
-    group.passers
-  end
-
-  def pending_members(group)
-    group.members - group.rsvped_members
+  def render_members(group, type)
+    members = group.public_send("#{type}_members".to_sym)
+    render partial: "member", collection: members, locals: { group: group }
   end
 end

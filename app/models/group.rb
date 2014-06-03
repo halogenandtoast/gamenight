@@ -21,17 +21,17 @@ class Group < ActiveRecord::Base
     end
   end
 
-  def attendees
+  def attending_members
     if has_next_date?
-      super
+      attendees
     else
       User.none
     end
   end
 
-  def passers
+  def non_attending_members
     if has_next_date?
-      super
+      passers
     else
       User.none
     end
@@ -76,6 +76,10 @@ class Group < ActiveRecord::Base
 
   def emails
     members.map(&:email)
+  end
+
+  def pending_members
+    members - rsvped_members
   end
 
   private

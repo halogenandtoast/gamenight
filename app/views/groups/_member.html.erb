@@ -1,0 +1,7 @@
+<%= link_to member, class: "member" do %>
+  <% if group.has_next_date? %>
+    <%= rsvp_tag(member, group) %>
+  <% else %>
+    <%= link_to member.name, member %>
+  <% end %>
+<% end %>

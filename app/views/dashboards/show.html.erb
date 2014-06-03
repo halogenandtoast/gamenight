@@ -28,15 +28,7 @@
       <% if @boxes.any? %>
         <% @boxes.each do |box| %>
           <%= content_tag_for(:li, box) do %>
-            <div class="image">
-              <%= link_to "http://boardgamegeek.com/boardgame/#{box.bgg_id}" do %>
-                <%= image_tag(box.image, width: 75) %>
-              <% end %>
-            </div>
-
-            <header class="title">
-              <%= box.title %>
-            </header>
+            <%= render box.game %>
 
             <aside>
               <%= form_for box, url: assign_box_path(box), namespace: box.title.parameterize, remote: true, method: :patch do |form| %>
