@@ -101,11 +101,19 @@
       <% if @games.any? %>
         <% @games.each do |game| %>
           <%= div_for(game, class: 'box box-grid') do %>
-            <%= link_to "http://boardgamegeek.com/boardgame/#{game.bgg_id}" do %>
-              <%= image_tag(game.image, width: 200) %>
+            <div class="image">
+              <%= link_to "http://boardgamegeek.com/boardgame/#{game.bgg_id}" do %>
+                <%= image_tag(game.image, width: 75) %>
+              <% end %>
+            </div>
+
+            <header>
               <%= game.title %>
-            <% end %>
-            <%= vote_link(@group, game) %>
+            </header>
+
+            <aside>
+              <%= vote_link(@group, game) %>
+            </aside>
           <% end %>
         <% end %>
       <% else %>

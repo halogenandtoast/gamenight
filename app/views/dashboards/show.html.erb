@@ -27,16 +27,22 @@
       <% if @boxes.any? %>
         <% @boxes.each do |box| %>
           <%= div_for(box) do %>
-            <%= link_to "http://boardgamegeek.com/boardgame/#{box.bgg_id}" do %>
-              <%= image_tag(box.image, width: 200) %>
+            <div class="image">
+              <%= link_to "http://boardgamegeek.com/boardgame/#{box.bgg_id}" do %>
+                <%= image_tag(box.image, width: 75) %>
+              <% end %>
+            </div>
+
+            <header>
               <%= box.title %>
-            <% end %>
+            </header>
 
-            <%= form_for box, url: assign_box_path(box), namespace: box.title.parameterize, remote: true, method: :patch do |form| %>
-              <%= form.select :location_id, current_user.locations.map { |location| ["at #{location.title}", location.id] }, { include_blank: true }, { class: 'box-location-field' } %>
-            <% end %>
-
-            <%= link_to "Remove", box, method: :delete, class: "remove", data: { confirm: "Are you sure?" } %>
+            <aside>
+              <%= form_for box, url: assign_box_path(box), namespace: box.title.parameterize, remote: true, method: :patch do |form| %>
+                <%= form.select :location_id, current_user.locations.map { |location| ["at #{location.title}", location.id] }, { include_blank: true }, { class: 'box-location-field' } %>
+              <% end %>
+              <%= link_to "Remove", box, method: :delete, class: "remove", data: { confirm: "Are you sure?" } %>
+            </aside>
           <% end %>
         <% end %>
       <% else %>

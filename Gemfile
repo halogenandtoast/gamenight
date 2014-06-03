@@ -18,6 +18,7 @@ gem 'normalize-rails', '~> 2.1.3'
 gem 'bitters'
 gem 'font-awesome-rails', '~> 4.0.3.1'
 gem 'newrelic_rpm'
+gem "rack-timeout"
 
 group :development do
   gem 'quiet_assets'
@@ -37,5 +38,4 @@ end
 group :production do
   gem 'unicorn'
   gem 'rails_12factor'
-  gem "rack-timeout"
 end
