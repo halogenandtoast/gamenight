@@ -77,7 +77,7 @@
         <h1>Current Votes</h1>
       </header>
 
-      <div class="games">
+      <div class="voted-games">
         <% @voted_games.each do |game| %>
           <%= div_for(game, class: 'box box-grid') do %>
             <div class="image">
