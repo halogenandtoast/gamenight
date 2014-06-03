@@ -59,7 +59,7 @@
             <%= render game %>
 
             <aside>
-              <%= pluralize(@group.votes.to_a.count { |vote| vote.game_id == game.id }, 'vote') %>
+              <%= pluralize(@group.vote_count_for(game).count, 'vote') %>
               <%= vote_link(@group, game) %>
             </aside>
           <% end %>

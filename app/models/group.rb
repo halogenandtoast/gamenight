@@ -21,6 +21,13 @@ class Group < ActiveRecord::Base
     end
   end
 
+  def vote_count_for(game)
+    # TODO: revert this when bandaid is not in place
+    # votes.to_a.count { |vote| vote.game_id == game.id }
+
+    votes.where(game_id: game.id).map(&:user).uniq
+  end
+
   def attending_members
     if has_next_date?
       attendees
