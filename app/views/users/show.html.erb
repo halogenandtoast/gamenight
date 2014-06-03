@@ -1,19 +1,31 @@
 <section class="main-section">
   <header class='title'>
     <h1><%= @user.name %>'s Games</h1>
+    <input class="user-search" placeholder="Filter games" />
   </header>
 
-  <div class="games">
-    <% if @boxes.any? %>
-      <% @boxes.each do |box| %>
-        <%= div_for(box) do %>
-          <%= link_to "http://boardgamegeek.com/boardgame/#{box.bgg_id}" do %>
-            <%= image_tag(box.image, width: 200) %>
-          <% end %>
+  <% if @games.any? %>
+    <ul class="games list">
+      <% @games.each do |game| %>
+        <%= content_tag_for(:li, game, class: 'box box-grid') do %>
+          <%= render game %>
         <% end %>
       <% end %>
-    <% else %>
-      No games yet.
-    <% end %>
-  </div>
+    </ul>
+  <% else %>
+    No games yet
+  <% end %>
 </section>
+
+<script type="text/javascript">
+  $('.user-search').on( "keyup", function(event) {
+    var value = $(".user-search").val();
+    if(value == "") {
+      $(".list li").show();
+    } else {
+      $(".list li:has(header:contains('"+value+"'))").show();
+      $(".list li:not(:has(header:contains('"+value+"')))").hide();
+    }
+  } );
+
+</script>

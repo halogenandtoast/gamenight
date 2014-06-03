@@ -74,8 +74,8 @@
       <input class="group-search" placeholder="Filter games" />
     </header>
 
-    <ul class="games list">
-      <% if @games.any? %>
+    <% if @games.any? %>
+      <ul class="games list">
         <% @games.each do |game| %>
           <%= content_tag_for(:li, game, class: 'box box-grid') do %>
             <%= render game %>
@@ -85,10 +85,10 @@
             </aside>
           <% end %>
         <% end %>
-      <% else %>
-        No games added yet
-      <% end %>
-    </ul>
+      </ul>
+    <% else %>
+      No games added yet
+    <% end %>
   </section>
 </div>
 

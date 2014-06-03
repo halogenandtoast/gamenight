@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @boxes = @user.boxes.includes(:game).alphabetical
+    @games = @user.games.alphabetical
   end
 
   private
