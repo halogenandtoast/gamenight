@@ -41,32 +41,35 @@
 
   <header class="title">
     <h1>Games</h1>
+    <input class="search" placeholder="Filter games" />
     <%= link_to '+', new_location_game_path(@location), class: 'add-link' %>
   </header>
 
-  <div class="games">
-    <% if @location.boxes.any? %>
-      <% @location.boxes.each do |box| %>
-        <%= div_for(box) do %>
-          <%= image_tag(box.image, width: 200) %>
+  <% if @location.boxes.any? %>
+    <ul class="games list">
+      <% @location.boxes.alphabetical.each do |box| %>
+        <%= content_tag_for(:li, box.game, class: 'box') do %>
+          <%= render box.game %>
 
-          <% if current_user.owns? box %>
-            <%= form_for box, url: assign_box_path(box), namespace: box.title.parameterize, remote: true, method: :patch do |form| %>
-              <%= form.label :location_id, "at" %>
-              <%= form.select :location_id, current_user.locations.map { |location| [location.title, location.id] }, { include_blank: true }, { class: 'box-location-field' } %>
+          <aside>
+            <% if current_user.owns? box %>
+              <%= form_for box, url: assign_box_path(box), namespace: box.title.parameterize, remote: true, method: :patch do |form| %>
+                <%= form.label :location_id, "at" %>
+                <%= form.select :location_id, current_user.locations.map { |location| [location.title, location.id] }, { include_blank: true }, { class: 'box-location-field' } %>
+              <% end %>
             <% end %>
-          <% end %>
-          <% if @location.owns? box %>
-            <%= link_to "Remove", box, method: :delete, class: 'remove', data: { confirm: "Are you sure?" } %>
-          <% end %>
+            <% if @location.owns? box %>
+              <%= link_to "Remove", box, method: :delete, class: 'remove', data: { confirm: "Are you sure?" } %>
+            <% end %>
+          </aside>
         <% end %>
       <% end %>
-    <% else %>
-      <div class="centered">
-        No games yet.
-      </div>
-    <% end %>
-  </div>
+  </ul>
+  <% else %>
+    <div class="centered">
+      No games yet.
+    </div>
+  <% end %>
 </section>
 
 <script type="text/javascript">
@@ -74,4 +77,13 @@
     $(this.form).trigger("submit")
     window.location = window.location
   });
+  $('.search').on("keyup", function(event) {
+    var value = $(".search").val();
+    if(value == "") {
+      $(".list li").show();
+    } else {
+      $(".list li:has(header:contains('"+value+"'))").show();
+      $(".list li:not(:has(header:contains('"+value+"')))").hide();
+    }
+  } );
 </script>

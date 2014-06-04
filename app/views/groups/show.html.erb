@@ -93,12 +93,11 @@
 </div>
 
 <script type="text/javascript">
-  $('.group-search').on( "keyup", function(event) {
+  $('.group-search').on("keyup", function(event) {
     var value = $(".group-search").val();
     if(value == "") {
       $(".list li").show();
     } else {
-      var value = $
       $(".list li:has(header:contains('"+value+"'))").show();
       $(".list li:not(:has(header:contains('"+value+"')))").hide();
     }
