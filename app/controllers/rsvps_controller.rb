@@ -5,7 +5,7 @@ class RsvpsController < ApplicationController
 
   def create
     group = find_group
-    rsvp = find_or_create_rsvp
+    rsvp = find_or_create_rsvp_for(group)
     rsvp.update(date: group.next_date, request: rsvp_request_type)
     redirect_to group
   end
@@ -13,14 +13,7 @@ class RsvpsController < ApplicationController
   def update
     group = find_group
     rsvp = find_rsvp_for(group)
-    rsvp.update(request: rsvp_request_type)
-    redirect_to group
-  end
-
-  def destroy
-    group = find_group
-    rsvp = find_rsvp_for(group)
-    Decline.new(rsvp)
+    update_rsvp(rsvp)
     redirect_to group
   end
 
@@ -34,12 +27,20 @@ class RsvpsController < ApplicationController
     current_user.rsvps.find_by(group_id: group.id)
   end
 
-  def find_or_create_rsvp
+  def update_rsvp(rsvp)
+    rsvp_handler.new(rsvp).update
+  end
+
+  def find_or_create_rsvp_for(group)
     current_user.rsvps.find_or_create_by(group_id: group.id)
   end
 
   def find_group
     @group ||= Group.find(params[:group_id])
+  end
+
+  def rsvp_handler
+    "#{rsvp_request_type}_rsvp_handler".classify.constantize
   end
 
   def ensure_login

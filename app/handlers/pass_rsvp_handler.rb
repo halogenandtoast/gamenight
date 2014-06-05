@@ -1,13 +1,13 @@
-class Decline
+class PassRsvpHandler
+  REQUEST_TYPE = 'pass'
 
   def initialize(rsvp)
     @rsvp = rsvp
   end
 
-  def process
+  def update
     votes.destroy_all
-    rsvp.date = nil
-    rsvp.save
+    rsvp.update(request: REQUEST_TYPE)
   end
 
   private
@@ -17,5 +17,4 @@ class Decline
   def votes
     rsvp.user.votes.where(group: rsvp.group)
   end
-
 end
