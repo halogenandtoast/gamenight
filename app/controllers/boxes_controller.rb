@@ -7,8 +7,8 @@ class BoxesController < ApplicationController
   private
 
   def owner
-    if params[:group_id]
-      current_user.locations.find(params[:group_id])
+    if params[:location_id]
+      current_user.locations.find(params[:location_id])
     else
       current_user
     end
