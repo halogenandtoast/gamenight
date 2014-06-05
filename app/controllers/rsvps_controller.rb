@@ -5,28 +5,37 @@ class RsvpsController < ApplicationController
 
   def create
     group = find_group
-    rsvp = current_user.rsvps.find_or_create_by(group_id: group.id)
-    rsvp.update(date: group.next_date, request: params[:request] || 'new')
+    rsvp = find_or_create_rsvp
+    rsvp.update(date: group.next_date, request: rsvp_request_type)
     redirect_to group
   end
 
   def update
     group = find_group
-    rsvp = current_user.rsvps.find_by(group_id: group.id)
-    rsvp.update(request: params[:request] || 'new')
+    rsvp = find_rsvp_for(group)
+    rsvp.update(request: rsvp_request_type)
     redirect_to group
   end
 
   def destroy
+    group = find_group
+    rsvp = find_rsvp_for(group)
     Decline.new(rsvp)
-    redirect_to find_group
+    redirect_to group
   end
 
   private
 
-  def find_rsvp
-    group = find_group
+  def rsvp_request_type
+    params[:request] || 'new'
+  end
+
+  def find_rsvp_for(group)
     current_user.rsvps.find_by(group_id: group.id)
+  end
+
+  def find_or_create_rsvp
+    current_user.rsvps.find_or_create_by(group_id: group.id)
   end
 
   def find_group
