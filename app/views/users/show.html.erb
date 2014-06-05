@@ -7,7 +7,7 @@
   <% if @games.any? %>
     <ul class="games list">
       <% @games.each do |game| %>
-        <%= content_tag_for(:li, game, class: 'box box-grid') do %>
+        <%= content_tag_for(:li, game, class: 'box box-grid', data: { title: game.title.downcase }) do %>
           <%= render game %>
         <% end %>
       <% end %>
@@ -19,12 +19,12 @@
 
 <script type="text/javascript">
   $('.user-search').on( "keyup", function(event) {
-    var value = $(".user-search").val();
+    var value = $(".user-search").val().toLowerCase();
     if(value == "") {
       $(".list li").show();
     } else {
-      $(".list li:has(header:contains('"+value+"'))").show();
-      $(".list li:not(:has(header:contains('"+value+"')))").hide();
+      $(".list li[data-title*='"+value+"']").show();
+      $(".list li:not([data-title*='"+value+"'])").hide();
     }
   } );
 

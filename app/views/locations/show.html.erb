@@ -48,7 +48,7 @@
   <% if @location.boxes.any? %>
     <ul class="games list">
       <% @location.boxes.alphabetical.each do |box| %>
-        <%= content_tag_for(:li, box.game, class: 'box') do %>
+        <%= content_tag_for(:li, box.game, class: 'box', data: { title: box.title.downcase }) do %>
           <%= render box.game %>
 
           <aside>
@@ -79,12 +79,12 @@
     window.location = window.location
   });
   $('.search').on("keyup", function(event) {
-    var value = $(".search").val();
+    var value = $(".search").val().toLowerCase();
     if(value == "") {
       $(".list li").show();
     } else {
-      $(".list li:has(header:contains('"+value+"'))").show();
-      $(".list li:not(:has(header:contains('"+value+"')))").hide();
+      $(".list li[data-title*='"+value+"']").show();
+      $(".list li:not([data-title*='"+value+"'])").hide();
     }
   } );
 </script>
