@@ -81,7 +81,9 @@
             <%= render game %>
 
             <aside>
-              <%= vote_link(@group, game) %>
+              <% if current_user.attending? @group %>
+                <%= vote_link(@group, game) %>
+              <% end %>
             </aside>
           <% end %>
         <% end %>
