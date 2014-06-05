@@ -1,9 +1,13 @@
 <div class="image">
-  <%= link_to "http://boardgamegeek.com/boardgame/#{game.bgg_id}" do %>
+  <%= bgg_link_to game do %>
     <%= image_tag(game.image, width: 75) %>
   <% end %>
 </div>
 
 <header>
-  <%= game.title %>
+  <ul>
+    <li><%= bgg_link_to(game) { game.title } %></li>
+    <li><%= "#{game.min_players}-#{game.max_players} players" %></li>
+    <li>About <%= game.playing_time %> minutes</li>
+  </ul>
 </header>
