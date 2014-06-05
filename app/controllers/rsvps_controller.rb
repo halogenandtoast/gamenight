@@ -6,7 +6,7 @@ class RsvpsController < ApplicationController
   def create
     group = find_group
     rsvp = find_or_create_rsvp_for(group)
-    rsvp.update(date: group.next_date, request: rsvp_request_type)
+    update_rsvp(rsvp)
     redirect_to group
   end
 
@@ -32,7 +32,7 @@ class RsvpsController < ApplicationController
   end
 
   def find_or_create_rsvp_for(group)
-    current_user.rsvps.find_or_create_by(group_id: group.id)
+    current_user.rsvps.find_or_create_by(group_id: group.id, date: group.next_date)
   end
 
   def find_group
