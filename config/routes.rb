@@ -30,6 +30,10 @@ Gamenight::Application.routes.draw do
     end
   end
 
+  resources :locations, only: :none do
+    resources :boxes, only: [:destroy]
+  end
+
   resources :groups, only: [:new, :create, :show] do
     resources :locations, only: [:new, :create]
     resources :invitations, only: [:new, :create]
