@@ -122,6 +122,7 @@ GEM
       multi_json (~> 1.0)
       websocket-driver (>= 0.2.0)
     polyglot (0.3.4)
+    possibly (0.1.1)
     pry (0.9.12.6)
       coderay (~> 1.0)
       method_source (~> 0.8)
@@ -243,6 +244,7 @@ DEPENDENCIES
   normalize-rails (~> 2.1.3)
   pg
   poltergeist
+  possibly
   pry
   pry-debugger
   pry-stack_explorer

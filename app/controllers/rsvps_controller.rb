@@ -32,7 +32,7 @@ class RsvpsController < ApplicationController
   end
 
   def find_or_create_rsvp_for(group)
-    current_user.rsvps.find_or_create_by(group_id: group.id, date: group.next_date)
+    current_user.rsvps.find_or_create_by(group_id: group.id, date: group.next_date.to_date)
   end
 
   def find_group
