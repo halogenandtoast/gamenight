@@ -1,13 +1,15 @@
-<div class="image">
-  <%= bgg_link_to game do %>
-    <%= image_tag(game.image, width: 75) %>
-  <% end %>
-</div>
+<% bgg_game(game) do |game| %>
+  <div class="image">
+    <%= bgg_link_to game do %>
+      <%= image_tag(game.image, width: 75) %>
+    <% end %>
+  </div>
 
-<header>
-  <ul>
-    <li><%= bgg_link_to(game) { game.title } %></li>
-    <li><%= "#{game.min_players}-#{game.max_players} players" %></li>
-    <li>About <%= game.playing_time %> minutes</li>
-  </ul>
-</header>
+  <header>
+    <ul>
+      <li><%= bgg_link_to(game) { game.title } %></li>
+      <li><%= "#{game.min_players}-#{game.max_players} players" %></li>
+      <li>About <%= game.playing_time %> minutes</li>
+    </ul>
+  </header>
+<% end %>
