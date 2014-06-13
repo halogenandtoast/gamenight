@@ -30,7 +30,7 @@ class GamesController < ApplicationController
   def retrieve_game
     Game.find_by(id: params[:game][:id]).tap do |game|
       unless game.retrieved?
-        GameDataJob.new(game).perform
+        Delayed::Job.enqueue GameDataJob.new(game)
       end
     end
   end

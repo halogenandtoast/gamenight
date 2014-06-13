@@ -21,6 +21,7 @@ gem 'newrelic_rpm'
 gem "rack-timeout"
 gem 'listjs-rails'
 gem 'possibly'
+gem 'delayed_job_active_record'
 
 group :development do
   gem 'quiet_assets'
