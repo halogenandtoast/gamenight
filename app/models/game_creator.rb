@@ -5,7 +5,7 @@ class GameCreator
 
   def create
     Game.create(title: title).tap do |game|
-      GameDataJob.new(game).perform
+      Delayed::Job.enqueue GameDataJob.new(game)
     end
   end
 
