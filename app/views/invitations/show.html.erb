@@ -2,7 +2,11 @@
   <%= link_to 'Accept', @invitation, method: :patch %>
   <%= link_to 'Decline', @invitation, method: :delete %>
 <% else %>
-  You've been invited!
+  <% if notice %>
+    <p class="error"><%= notice %></p>
+  <% else %>
+    <p class="info">You've been invited!</p>
+  <% end %>
   <%= form_for(@invitation) do |form| %>
     <%= form.fields_for(@invitation.user) do |fields| %>
       <div>

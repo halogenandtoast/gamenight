@@ -11,13 +11,11 @@ class Invitation < ActiveRecord::Base
   end
 
   def complete(user_params)
-    if user.status == 'invited'
-      user.update(user_params.except(:password).merge(token: token, status: 'active'))
-      Monban::PasswordReset.new(user, user_params[:password]).perform
-      user.save
+    if valid_params?(user_params)
+      add_user_to_group(user_params)
+    else
+      false
     end
-    user.groups << group
-    destroy
   end
 
   private
@@ -28,4 +26,19 @@ class Invitation < ActiveRecord::Base
       self.token = SecureRandom.urlsafe_base64
     end
   end
+
+  def add_user_to_group(user_params)
+    if user.status == 'invited'
+      user.update(user_params.except(:password).merge(token: token, status: 'active'))
+      Monban::PasswordReset.new(user, user_params[:password]).perform
+      user.save
+    end
+    user.groups << group
+    destroy
+  end
+
+  def valid_params?(params)
+    params[:name].present? && params[:email].present?
+  end
+
 end

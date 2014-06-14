@@ -16,10 +16,14 @@ class InvitationsController < ApplicationController
   end
 
   def update
-    invitation = find_invitation
-    invitation.complete(user_params)
-    sign_in(invitation.user)
-    redirect_to invitation.group
+    @invitation = find_invitation
+    if @invitation.complete(user_params)
+      sign_in(@invitation.user)
+      redirect_to @invitation.group
+    else
+      flash.now[:notice] = "All fields are required"
+      render :show
+    end
   end
 
   def destroy
