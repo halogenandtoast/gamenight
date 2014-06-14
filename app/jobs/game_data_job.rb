@@ -1,7 +1,7 @@
 class GameDataJob
-  def initialize game, api = BggApi
+  def initialize game, api_interface = BggApi
     @game = game
-    @api = api.new
+    @api_interface = api_interface
   end
 
   def perform(id = nil)
@@ -14,6 +14,10 @@ class GameDataJob
   end
 
   private
+
+  def api
+    @api ||= @api_interface.new
+  end
 
   def find_game_data(id = nil)
     api.thing(id: id || find_game_id)["item"][0]
