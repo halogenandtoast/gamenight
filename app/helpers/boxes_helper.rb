@@ -1,17 +1,9 @@
 module BoxesHelper
-  def number_of_players(box)
-    if box.min_players && box.max_players
-      display_for_number_of_players(box.min_players, box.max_players)
+  def number_of_players(game)
+    if game.fixed_number_of_players?
+      pluralize(game.min_players, 'player')
     else
-      "N/A"
-    end
-  end
-
-  def display_for_number_of_players(min, max)
-    if min == max
-      pluralize(min, 'player')
-    else
-      "#{min} - #{pluralize(max, 'player')}"
+      "#{game.min_players} - #{pluralize(game.max_players, 'player')}"
     end
   end
 end

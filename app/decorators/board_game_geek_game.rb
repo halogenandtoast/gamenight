@@ -4,6 +4,10 @@ class BoardGameGeekGame < SimpleDelegator
     define_method(method) { data_parser.public_send(method) }
   end
 
+  def fixed_number_of_players?
+    max_players.zero? || (max_players == min_players)
+  end
+
   private
 
   def data_parser
