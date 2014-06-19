@@ -8,7 +8,7 @@
   <header>
     <ul>
       <li><%= bgg_link_to(game) { game.title } %></li>
-      <li><%= "#{game.min_players}-#{game.max_players} players" %></li>
+      <li><%= number_of_players(game) %> players</li>
       <li>About <%= game.playing_time %> minutes</li>
     </ul>
   </header>
