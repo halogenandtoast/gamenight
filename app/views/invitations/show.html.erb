@@ -1,24 +1,37 @@
 <% if @invitation.user.status == 'active' %>
-  <%= link_to 'Accept', @invitation, method: :patch %>
-  <%= link_to 'Decline', @invitation, method: :delete %>
+  <section class="main-section">
+    <header class="title">
+      <h1>Accept Invitation to <%= @invitation.group.name %></h1>
+    </header>
+    <div>
+      <%= link_to 'Accept', @invitation, method: :patch %>
+      <%= link_to 'Decline', @invitation, method: :delete %>
+    </div>
+  </section>
 <% else %>
   <% if notice %>
     <p class="error"><%= notice %></p>
   <% else %>
     <p class="info">You've been invited!</p>
   <% end %>
-  <%= form_for(@invitation) do |form| %>
-    <%= form.fields_for(@invitation.user) do |fields| %>
-      <div>
-        <%= fields.text_field :name, placeholder: 'your name' %>
-      </div>
-      <div>
-        <%= fields.email_field :email, placeholder: 'email' %>
-      </div>
-      <div>
-        <%= fields.password_field :password, placeholder: 'password' %>
-      </div>
+  <section class="main-section">
+    <header class="title">
+      <h1>Accept Invitation to <%= @invitation.group.name %></h1>
+    </header>
+
+    <%= form_for(@invitation) do |form| %>
+      <%= form.fields_for(@invitation.user) do |fields| %>
+        <div>
+          <%= fields.text_field :name, placeholder: 'your name' %>
+        </div>
+        <div>
+          <%= fields.email_field :email, placeholder: 'email' %>
+        </div>
+        <div>
+          <%= fields.password_field :password, placeholder: 'password' %>
+        </div>
+      <% end %>
+      <%= form.submit "Join Gamenight.io" %>
     <% end %>
-    <%= form.submit "Join Gamenight.io" %>
-  <% end %>
+  </section>
 <% end %>

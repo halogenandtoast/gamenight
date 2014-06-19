@@ -402,3 +402,10 @@ footer {
     }
   }
 }
+
+div.errors {
+  @include clearfix;
+  padding: 10px;
+  background-color: #FFD1DC;
+  margin-bottom: 10px;
+}
