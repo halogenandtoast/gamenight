@@ -38,6 +38,14 @@ class Invitation < ActiveRecord::Base
   end
 
   def valid_params?(params)
+    user_valid? || params_have_user_params?(params)
+  end
+
+  def user_valid?
+    user.name.present? && user.email.present?
+  end
+
+  def params_have_user_params?
     params[:name].present? && params[:email].present?
   end
 
