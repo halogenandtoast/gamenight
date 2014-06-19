@@ -9,11 +9,11 @@ class BoardGameGeekDataParser
   end
 
   def min_players
-    data["minplayers"][0]["value"].or_else { 0 }
+    data["minplayers"][0]["value"].or_else { 0 }.to_i
   end
 
   def max_players
-    data["maxplayers"][0]["value"].or_else { 0 }
+    data["maxplayers"][0]["value"].or_else { 0 }.to_i
   end
 
   def suggested_players
