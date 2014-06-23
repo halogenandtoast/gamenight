@@ -24,7 +24,7 @@ class RsvpsController < ApplicationController
   end
 
   def find_rsvp_for(group)
-    current_user.rsvps.find_by(group_id: group.id)
+    current_user.rsvps.find_by(group_id: group.id, date: group.next_date.to_date)
   end
 
   def update_rsvp(rsvp)
