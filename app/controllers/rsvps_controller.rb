@@ -58,7 +58,7 @@ class RsvpsController < ApplicationController
 
   def user_from_token
     if params[:token]
-      @user = User.find_by(token: params[:token])
+      @user ||= User.find_by(token: params[:token])
     end
   end
 end
