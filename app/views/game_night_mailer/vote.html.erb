@@ -6,10 +6,10 @@
   <p>Also you haven't RSVP'd yet, so here's some links: </p>
 
   <div style="padding: 10px; margin: 10px;">
-    <%= link_to 'Yes', group_rsvp_url(@group, request: 'new', token: @member.token) %>
+    <%= link_to 'Yes', group_rsvp_request_url(@group, @member.token, 'new') %>
   </div>
 
   <div style="padding: 10px; margin: 10px;">
-    <%= link_to 'No', group_rsvp_url(@group, request: 'pass', token: @member.token) %>
+    <%= link_to 'No', group_rsvp_request_url(@group, @member.token, 'pass') %>
   </div>
 <% end %>
