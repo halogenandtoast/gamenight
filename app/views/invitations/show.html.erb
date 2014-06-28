@@ -1,7 +1,7 @@
 <% if @invitation.user.status == 'active' %>
   <section class="main-section">
     <header class="title">
-      <h1>Accept Invitation to <%= @invitation.group.name %></h1>
+      <h1>Accept Invitation to <%= @invitation.group.title %></h1>
     </header>
     <div>
       <%= link_to 'Accept', @invitation, method: :patch %>
@@ -16,7 +16,7 @@
   <% end %>
   <section class="main-section">
     <header class="title">
-      <h1>Accept Invitation to <%= @invitation.group.name %></h1>
+      <h1>Accept Invitation to <%= @invitation.group.title %></h1>
     </header>
 
     <%= form_for(@invitation) do |form| %>
