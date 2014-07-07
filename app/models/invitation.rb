@@ -45,8 +45,7 @@ class Invitation < ActiveRecord::Base
     user.name.present? && user.email.present?
   end
 
-  def params_have_user_params?
+  def params_have_user_params?(params)
     params[:name].present? && params[:email].present?
   end
-
 end
