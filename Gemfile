@@ -33,9 +33,6 @@ group :test, :development do
   gem 'capybara'
   gem 'poltergeist'
   gem 'webmock', require: false
-  gem 'pry'
-  gem 'pry-debugger'
-  gem 'pry-stack_explorer'
 end
 
 group :production do

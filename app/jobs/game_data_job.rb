@@ -37,5 +37,5 @@ class GameDataJob
   end
 
   private
-  attr_reader :game, :api
+  attr_reader :game
 end

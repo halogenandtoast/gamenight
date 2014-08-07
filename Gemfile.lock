@@ -33,8 +33,6 @@ GEM
     bgg-api (0.0.2)
       httparty
       xml-simple
-    binding_of_caller (0.7.2)
-      debug_inspector (>= 0.0.1)
     bitters (0.9.3)
       bourbon (>= 3.1)
       sass (>= 3.2)
@@ -50,7 +48,6 @@ GEM
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
     cliver (0.3.2)
-    coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -58,16 +55,8 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
-    columnize (0.8.9)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
-    debug_inspector (0.0.2)
-    debugger (1.6.6)
-      columnize (>= 0.3.1)
-      debugger-linecache (~> 1.2.0)
-      debugger-ruby_core_source (~> 1.3.2)
-    debugger-linecache (1.2.0)
-    debugger-ruby_core_source (1.3.4)
     delayed_job (4.0.1)
       activesupport (>= 3.0, < 4.2)
     delayed_job_active_record (4.0.1)
@@ -101,7 +90,6 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    method_source (0.8.2)
     mime-types (1.25.1)
     mini_portile (0.6.0)
     minitest (5.3.3)
@@ -128,16 +116,6 @@ GEM
       websocket-driver (>= 0.2.0)
     polyglot (0.3.4)
     possibly (0.1.1)
-    pry (0.9.12.6)
-      coderay (~> 1.0)
-      method_source (~> 0.8)
-      slop (~> 3.4)
-    pry-debugger (0.2.2)
-      debugger (~> 1.3)
-      pry (~> 0.9.10)
-    pry-stack_explorer (0.4.9.1)
-      binding_of_caller (>= 0.7)
-      pry (>= 0.9.11)
     quiet_assets (1.0.2)
       railties (>= 3.1, < 5.0)
     rack (1.5.2)
@@ -191,7 +169,6 @@ GEM
       sass (~> 3.2.0)
       sprockets (~> 2.8, <= 2.11.0)
       sprockets-rails (~> 2.0)
-    slop (3.5.0)
     sprockets (2.11.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -251,9 +228,6 @@ DEPENDENCIES
   pg
   poltergeist
   possibly
-  pry
-  pry-debugger
-  pry-stack_explorer
   quiet_assets
   rack-timeout
   rails (= 4.1.0)
