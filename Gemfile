@@ -22,6 +22,7 @@ gem "rack-timeout"
 gem 'listjs-rails'
 gem 'possibly'
 gem 'delayed_job_active_record'
+gem 'nokogiri'
 
 group :development do
   gem 'quiet_assets'

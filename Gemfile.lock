@@ -224,6 +224,7 @@ DEPENDENCIES
   monban-generators
   neat
   newrelic_rpm
+  nokogiri
   normalize-rails (~> 2.1.3)
   pg
   poltergeist
