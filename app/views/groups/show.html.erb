@@ -56,7 +56,9 @@
       <div class="voted-games">
         <% @voted_games.each do |game| %>
           <%= div_for(game, class: 'box box-grid') do %>
-            <%= render game %>
+            <% cache(game) do %>
+              <%= render game %>
+            <% end %>
 
             <aside>
               <%= pluralize(@group.vote_count_for(game).count, 'vote') %>

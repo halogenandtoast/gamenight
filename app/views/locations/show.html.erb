@@ -49,7 +49,9 @@
     <ul class="games list">
       <% @location.boxes.alphabetical.each do |box| %>
         <%= content_tag_for(:li, box.game, class: 'box', data: { title: box.title.downcase }) do %>
-          <%= render box.game %>
+          <% cache(box.game) do %>
+            <%= render box.game %>
+          <% end %>
 
           <aside>
             <% if current_user.owns? box %>
