@@ -9,6 +9,6 @@ module ApplicationHelper
 
   def markdown(text)
     redcarpet = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
-    redcarpet.render(text)
+    redcarpet.render(text).gsub(/<\/?p>/, "")
   end
 end
