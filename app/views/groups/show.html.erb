@@ -3,7 +3,7 @@
 </header>
 
 <% if @group.notes.present? %>
-  <p class="notes">NOTICE: <%= @group.notes %></p>
+  <p class="notes">NOTICE: <%= markdown(@group.notes) %></p>
 <% end %>
 
 <% if @group.has_next_date? %>
