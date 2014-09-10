@@ -78,17 +78,20 @@
       <input class="group-search" placeholder="Filter games" />
     </header>
 
-    <% if @games.any? %>
+    <% if @boxes.any? %>
       <ul class="games list">
-        <% @games.each do |game| %>
-          <%= content_tag_for(:li, game, class: 'box box-grid', data: { title: game.title.downcase }) do %>
-            <%= render game %>
+        <% @boxes.each do |box| %>
+          <% box.game.tap do |game| %>
+            <%= content_tag_for(:li, game, class: 'box box-grid', data: { title: game.title.downcase }) do %>
+              <%= render game %>
 
-            <aside>
-              <% if current_user.attending? @group %>
-                <%= vote_link(@group, game) %>
-              <% end %>
-            </aside>
+              <aside>
+                <% if current_user.attending? @group %>
+                  <%= vote_link(@group, game) %>
+                <% end %>
+                <div class='owner'>Owned by <%= link_to box.owner.name, box.owner %></div>
+              </aside>
+            <% end %>
           <% end %>
         <% end %>
       </ul>

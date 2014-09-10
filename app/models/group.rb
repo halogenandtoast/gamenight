@@ -11,7 +11,20 @@ class Group < ActiveRecord::Base
   has_many :passing_rsvps, -> (group) { where("date = ? AND request = 'pass'", group.next_date.to_date) }, { class_name: 'Rsvp' }
   has_many :passers, through: :passing_rsvps, source: :user
   has_many :attendees, through: :attending_rsvps, source: :user
-  has_many :games, through: :boxes
+
+  def games
+    if has_next_date?
+      Game.where(id: available_boxes.select(:game_id))
+    else
+      Game.none
+    end
+  end
+
+  def available_boxes
+    boxes.
+      where(owner_id: rsvped_member_ids, owner_type: "User").
+      includes(:game)
+  end
 
   def voted_games
     if has_next_date?

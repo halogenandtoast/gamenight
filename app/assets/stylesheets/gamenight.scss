@@ -265,6 +265,7 @@ header {
 
 .games {
   .box {
+    position: relative;
     padding: 10px;
     @include clearfix;
     clear: both;
@@ -285,6 +286,16 @@ header {
         margin: 0;
       }
       float: right;
+      .owner {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        font-size: 0.8em;
+        color: #999;
+        a {
+          color: #666;
+        }
+      }
     }
   }
 }
