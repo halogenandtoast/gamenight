@@ -4,6 +4,7 @@ require 'yaml'
 require 'continuation'
 require 'thread'
 
+desc "Pull BGG data"
 namespace :bgg do
   task :pull do
     unless Dir.exists?("tmp/games")
@@ -49,6 +50,8 @@ namespace :bgg do
     mutex = Mutex.new
     pool = Pool.new(10)
 
+    puts "Count: #{page_count} pages"
+
     page_count.times.map do |i|
       filename = "tmp/games/games_#{(i + 1).to_s.rjust(3, "0")}.yaml"
       unless File.exists?(filename)
@@ -89,11 +92,14 @@ namespace :bgg do
       end
     end
 
-    games = page_count.times.inject([]) { |games, id| games + YAML.load_file("tmp/games/games_%03d.yaml" % (id + 1)) }
-    File.open("lib/all.yaml", "wb") { |out| YAML.dump(games, out) }
-
     at_exit do
       pool.shutdown
+      puts "Finished retrieving pages"
+      puts "Combining #{page_count} pages"
+      games = page_count.times.inject([]) { |games, id| games + YAML.load_file("tmp/games/games_%03d.yaml" % (id + 1)) }
+      puts "Finished writing: lib/all.yaml"
+      File.open("lib/all.yaml", "wb") { |out| YAML.dump(games, out) }
+      puts "Finished"
     end
   end
 
@@ -106,62 +112,6 @@ namespace :bgg do
         new_game.year = game[:year]
       end
     end
-
-    # xml = Nokogiri::HTML(open("#{BASE_URI}/browse/boardgame"))
-    # print "Fetching: /browse/boardgame"
-    # 
-    # table = xml.at_css("table#collectionitems")
-    # 
-    # rows = table.search("tr").drop(1) # dropping the header
-    # 
-    # games = rows.map do |row|
-    #   title_node = row.search("td")[2]
-    #   anchor = title_node.at_css("a")
-    #   url = anchor["href"]
-    #   id = url.match(/\/boardgame\/([^\/]+).*/)[1]
-    #   title = anchor.text
-    #   year = title_node.at_css("span").text[1..-2]
-    #   { id: id, title: title, year: year }
-    # end
-    # 
-    # next_page = xml.at_css("[title='next page']")
-    # while next_page
-    #   puts
-    #   print "Fetching: #{next_page['href']}"
-    #   callcc { |cc| $cc = cc }
-    #   print "."
-    #   begin
-    #     page = "#{BASE_URI}#{next_page['href']}"
-    # 
-    #     xml = Nokogiri::HTML(open(page))
-    # 
-    #     table = xml.at_css("table#collectionitems")
-    # 
-    #     rows = table.search("tr").drop(1)
-    # 
-    #     games += rows.map do |row|
-    #       title_node = row.search("td")[2]
-    #       anchor = title_node.at_css("a")
-    #       url = anchor["href"]
-    #       id = url.match(/\/boardgame(?:expansion)?\/([^\/]+).*/)[1]
-    #       title = anchor.text
-    #       year_node = title_node.at_css("span")
-    #       year = if year_node
-    #                year_node.text[1..-1]
-    #              end
-    #       { id: id, title: title, year: year }
-    #     end
-    #     next_page = xml.at_css("[title='next page']")
-    #     sleep 2
-    #   rescue Errno::ECONNRESET => e
-    #     sleep 5
-    #     $cc.call
-    #   end
-    # end
-    # 
-    # File.open( 'games.yaml', 'w' ) do |out|
-    #   YAML.dump( games, out )
-    # end
 
   end
 end
