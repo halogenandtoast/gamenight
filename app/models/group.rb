@@ -34,7 +34,7 @@ class Group < ActiveRecord::Base
     end
   end
 
-  def vote_count_for(game)
+  def users_who_voted_for(game)
     # TODO: revert this when bandaid is not in place
     # votes.to_a.count { |vote| vote.game_id == game.id }
 

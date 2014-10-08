@@ -61,7 +61,12 @@
             <% end %>
 
             <aside>
-              <%= pluralize(@group.vote_count_for(game).count, 'vote') %>
+              <div><%= pluralize(@group.users_who_voted_for(game).count, 'vote') %></div>
+              <% @group.users_who_voted_for(game).each do |user| %>
+                <div>
+                  <%= rsvp_tag(user, @group) %>
+                </div>
+              <% end %>
               <% if current_user.attending? @group %>
                 <%= vote_link(@group, game) %>
               <% end %>
