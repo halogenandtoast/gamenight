@@ -63,8 +63,8 @@
             <aside>
               <div><%= pluralize(@group.users_who_voted_for(game).count, 'vote') %></div>
               <% @group.users_who_voted_for(game).each do |user| %>
-                <div>
-                  <%= rsvp_tag(user, @group) %>
+                <div class="voted-user">
+                  <%= user.name %>
                 </div>
               <% end %>
               <% if current_user.attending? @group %>
