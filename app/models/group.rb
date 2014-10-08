@@ -99,7 +99,7 @@ class Group < ActiveRecord::Base
   end
 
   def pending_members
-    members - rsvped_members
+    members - rsvped_members - passers
   end
 
   private
