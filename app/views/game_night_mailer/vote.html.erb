@@ -1,6 +1,8 @@
 <p>Hey <%= @member.name %>,</p>
 
-<p>Just a reminder to vote on which games you'd like to have brought to game night tomorrow. Please vote before 6am Wednesday morning so the games can be brought in if need be.</p>
+<p>Just a reminder to vote on which games you'd like to have brought to the <%= @group.title %> game night tomorrow. Please vote before 6am Wednesday morning so the games can be brought in if need be.</p>
+
+<p>Visit the group here <%= group_url(@group, token: @member.token) %></p>
 
 <% unless @member.rsvped?(@group) %>
   <p>Also you haven't RSVP'd yet, so here's some links: </p>

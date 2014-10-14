@@ -1,7 +1,5 @@
 class RsvpsController < ApplicationController
   skip_before_filter :verify_authenticity_token, only: [:create]
-  skip_before_filter :require_login, only: [:create]
-  before_filter :ensure_login, only: [:create]
 
   def create
     group = find_group
@@ -43,22 +41,4 @@ class RsvpsController < ApplicationController
     "#{rsvp_request_type}_rsvp_handler".classify.constantize
   end
 
-  def ensure_login
-    current_user || sign_in_via_token
-    unless signed_in?
-      redirect_to new_session_path(redirect: request.url)
-    end
-  end
-
-  def sign_in_via_token
-    if user_from_token
-      sign_in(user_from_token)
-    end
-  end
-
-  def user_from_token
-    if params[:token]
-      @user ||= User.find_by(token: params[:token])
-    end
-  end
 end

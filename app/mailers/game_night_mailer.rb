@@ -10,6 +10,6 @@ class GameNightMailer < ActionMailer::Base
   def vote(member, group)
     @group = group
     @member = member
-    mail(to: @member.email)
+    mail(subject: "Votes needed for the #{@group.title} board game group", to: @member.email)
   end
 end
