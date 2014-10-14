@@ -1,5 +1,5 @@
 class InvitationsController < ApplicationController
-  skip_before_filter :require_login, except: [:create]
+  skip_before_filter :require_login_with_token, except: [:create]
   def show
     @invitation = find_invitation
   end

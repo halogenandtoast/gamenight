@@ -1,5 +1,5 @@
 class PasswordResetsController < ApplicationController
-  skip_before_action :require_login, only: [:new, :create, :edit, :update]
+  skip_before_action :require_login_with_token, only: [:new, :create, :edit, :update]
 
   def new
     @password_reset = PasswordReset.new

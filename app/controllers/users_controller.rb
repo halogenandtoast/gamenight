@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  skip_before_filter :require_login, only: [:new, :create]
+  skip_before_filter :require_login_with_token, only: [:new, :create]
 
   def new
     @user = User.new

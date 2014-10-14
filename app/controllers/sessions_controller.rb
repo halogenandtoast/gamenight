@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_filter :require_login
+  skip_before_filter :require_login_with_token
 
   def new
   end
