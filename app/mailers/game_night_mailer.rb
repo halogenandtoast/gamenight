@@ -1,5 +1,5 @@
 class GameNightMailer < ActionMailer::Base
-  default from: 'Board Game Night <noreply@gamenig.ht>'
+  default from: 'Board Game Night <noreply@boardgamenight.herokuapp.com>'
 
   def notification(slacker, group)
     @group = group

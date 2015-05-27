@@ -1,5 +1,5 @@
 <% if @invitation.user.status == 'active' %>
   <%= @invitation.sender.name %> has invited you to the <%= @invitation.group.title %> game group. <%= link_to 'Click here', invitation_url(@invitation) %> to view and accept or reject the invitation.
 <% else %>
-  <%= @invitation.sender.name %> has invited you to join GameNig.ht and the <%= @invitation.group.title %> game group. <%= link_to 'Click here', invitation_url(@invitation) %> to view and accept or reject the invitation.
+  <%= @invitation.sender.name %> has invited you to join GameNight and the <%= @invitation.group.title %> game group. <%= link_to 'Click here', invitation_url(@invitation) %> to view and accept or reject the invitation.
 <% end %>

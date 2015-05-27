@@ -13,7 +13,7 @@ Gamenight::Application.configure do
   config.active_support.deprecation = :notify
   config.log_formatter = ::Logger::Formatter.new
 
-  config.action_mailer.default_url_options = { host: 'gamenig.ht' }
+  config.action_mailer.default_url_options = { host: 'boardgamenight.herokuapp.com' }
 
   ActionMailer::Base.smtp_settings = {
     address: 'smtp.sendgrid.net',
