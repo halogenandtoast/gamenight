@@ -18,6 +18,8 @@ class BggImporter
   attr_reader :api, :user
 
   def collection
+    user.boxes.where.not(game: existing_games).destroy_all
+
     existing_games.each do |game|
       unless game.retrieved?
         GameDataJob.new(game).perform
