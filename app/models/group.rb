@@ -65,11 +65,8 @@ class Group < ActiveRecord::Base
     end
   end
 
-
   def notes
-    if next_location
-      next_location.notes
-    end
+    next_location.notes
   end
 
   def has_next_date?
@@ -85,6 +82,10 @@ class Group < ActiveRecord::Base
   end
 
   def next_location
+    next_location_with_date || NullLocation.new
+  end
+
+  def next_location_with_date
     locations.
       select { |location| location.has_next_date? }.
       min_by { |location| location.next_date }
