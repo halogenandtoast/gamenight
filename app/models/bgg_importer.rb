@@ -26,7 +26,7 @@ class BggImporter
   end
 
   def game_data
-    api.collection({ username: user.bgg_username, subtype: "boardgame", excludesubtype: "boardgameexpansion" })["item"]
+    api.collection({ username: user.bgg_username, subtype: "boardgame", excludesubtype: "boardgameexpansion", own: 1 })["item"]
   end
 
   def existing_games
