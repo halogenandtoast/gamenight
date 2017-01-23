@@ -1,4 +1,4 @@
-class SignUpWithName < Monban::SignUp
+class SignUpWithName < Monban::Services::SignUp
   def perform
     # stop judging me
     super.tap do |user|
