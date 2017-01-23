@@ -25,7 +25,6 @@ gem 'possibly'
 gem 'delayed_job_active_record'
 gem 'nokogiri'
 gem 'redcarpet'
-gem 'airbrake'
 
 group :development do
   gem 'quiet_assets'
