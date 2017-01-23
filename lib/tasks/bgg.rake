@@ -1,7 +1,6 @@
 require 'nokogiri'
 require 'open-uri'
 require 'yaml'
-require 'continuation'
 require 'thread'
 
 desc "Pull BGG data"
@@ -42,7 +41,7 @@ namespace :bgg do
       end
     end
 
-    BASE_URI = "http://boardgamegeek.com"
+    BASE_URI = "https://boardgamegeek.com"
 
     xml = Nokogiri::HTML(open("#{BASE_URI}/browse/boardgame"))
     page_count = xml.at_css("a[title='last page']").text.tr("^0-9", "").to_i
@@ -60,8 +59,7 @@ namespace :bgg do
             puts "Fetching: /browse/boardgame/page/#{i+1}"
           end
 
-          callcc { |cc| Thread.current[:cc] = cc }
-
+          retries = 0
           begin
             xml = Nokogiri::HTML(open("#{BASE_URI}/browse/boardgame/page/#{i+1}"))
             table = xml.at_css("table#collectionitems")
@@ -81,8 +79,14 @@ namespace :bgg do
               { id: id, title: title, year: year }
             end
           rescue Errno::ECONNRESET => e
-            sleep 5
-            Thread.current[:cc].call
+            if retries < 5
+              retries += 1
+              sleep 5
+              retry
+            else
+              puts "Something is wrong. Exiting..."
+              exit
+            end
           end
 
           File.open( filename, 'wb' ) do |out|
