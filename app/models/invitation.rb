@@ -30,7 +30,7 @@ class Invitation < ActiveRecord::Base
   def add_user_to_group(user_params)
     if user.status == 'invited'
       user.update(user_params.except(:password).merge(token: token, status: 'active'))
-      Monban::PasswordReset.new(user, user_params[:password]).perform
+      Monban::Services::PasswordReset.new(user, user_params[:password]).perform
       user.save
     end
     user.groups << group
