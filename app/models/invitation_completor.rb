@@ -24,7 +24,7 @@ class InvitationCompletor
   def update_user(user_params)
     if invited?
       user.update(user_params.except(:password).merge(status: 'active'))
-      Monban::PasswordReset.new(user, user_params[:password]).perform
+      Monban::Services::PasswordReset.new(user, user_params[:password]).perform
       user.save
     end
   end
