@@ -48,7 +48,7 @@
   <% if @location.boxes.any? %>
     <ul class="games list">
       <% @location.boxes.alphabetical.each do |box| %>
-        <%= content_tag_for(:li, box.game, class: 'box', data: { title: box.title.downcase }) do %>
+        <li class="game box" data-title="<%= box.title.downcase %>">
           <% cache(box.game) do %>
             <%= render box.game %>
           <% end %>
@@ -65,7 +65,7 @@
               <%= link_to "Remove", [@location, box], method: :delete, class: 'remove', data: { confirm: "Are you sure?" } %>
             <% end %>
           </aside>
-        <% end %>
+        </li>
       <% end %>
   </ul>
   <% else %>

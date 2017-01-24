@@ -4,8 +4,7 @@ class GroupsController < ApplicationController
   end
 
   def create
-    @group = Group.new(group_params)
-    current_user.groups << @group
+    @group = current_user.groups.create(group_params)
     redirect_to @group
   end
 
@@ -18,6 +17,8 @@ class GroupsController < ApplicationController
   private
 
   def group_params
-    params.require(:group).permit(:title)
+    params.require(:group).permit(:title).merge(
+      time_zone: current_user.time_zone
+    )
   end
 end

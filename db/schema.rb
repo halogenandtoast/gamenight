@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140613040045) do
+ActiveRecord::Schema.define(version: 20170123084434) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,11 @@ ActiveRecord::Schema.define(version: 20140613040045) do
   add_index "boxes", ["location_id"], name: "index_boxes_on_location_id", using: :btree
   add_index "boxes", ["owner_id", "owner_type"], name: "index_boxes_on_owner_id_and_owner_type", using: :btree
 
+  create_table "comment", force: true do |t|
+    t.string  "message", limit: nil, null: false
+    t.integer "user_id", limit: 8
+  end
+
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
     t.integer  "attempts",   default: 0, null: false
@@ -44,6 +49,14 @@ ActiveRecord::Schema.define(version: 20140613040045) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
+  create_table "email", force: true do |t|
+    t.string  "email",   limit: nil, null: false
+    t.integer "user_id", limit: 8
+    t.string  "verkey",  limit: nil
+  end
+
+  add_index "email", ["email"], name: "unique_email", unique: true, using: :btree
 
   create_table "games", force: true do |t|
     t.string   "title"
@@ -71,6 +84,7 @@ ActiveRecord::Schema.define(version: 20140613040045) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "time_zone",  default: "UTC"
   end
 
   create_table "invitations", force: true do |t|
@@ -120,6 +134,13 @@ ActiveRecord::Schema.define(version: 20140613040045) do
   add_index "rsvps", ["group_id"], name: "index_rsvps_on_group_id", using: :btree
   add_index "rsvps", ["user_id"], name: "index_rsvps_on_user_id", using: :btree
 
+  create_table "user", force: true do |t|
+    t.string "ident",    limit: nil, null: false
+    t.string "password", limit: nil
+  end
+
+  add_index "user", ["ident"], name: "unique_user", unique: true, using: :btree
+
   create_table "users", force: true do |t|
     t.string   "email"
     t.string   "password_digest"
@@ -129,6 +150,7 @@ ActiveRecord::Schema.define(version: 20140613040045) do
     t.string   "status",          default: "active"
     t.string   "token"
     t.string   "bgg_username"
+    t.string   "time_zone",       default: "UTC"
   end
 
   create_table "votes", force: true do |t|

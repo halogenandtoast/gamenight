@@ -15,5 +15,7 @@
 //= require jquery-ui
 //= require turbolinks
 //= require recurring_select
+//= require detect_timezone
+//= require jquery.detect_timezone
 //= require list
 //= require_tree .

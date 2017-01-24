@@ -12,6 +12,10 @@ class Group < ActiveRecord::Base
   has_many :passers, through: :passing_rsvps, source: :user
   has_many :attendees, through: :attending_rsvps, source: :user
 
+  def time_zone
+    ActiveSupport::TimeZone[super]
+  end
+
   def games
     if has_next_date?
       Game.where(id: available_boxes.select(:game_id))

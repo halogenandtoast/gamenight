@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_filter :require_login_with_token
+  before_filter :set_timezone
 
   private
 
@@ -12,6 +13,14 @@ class ApplicationController < ActionController::Base
     unless signed_in?
       redirect_to new_session_path(redirect: request.url)
     end
+  end
+
+  def set_timezone
+    Time.zone = current_user.time_zone
+  end
+
+  def current_user
+    super || Guest.new
   end
 
   def sign_in_via_token

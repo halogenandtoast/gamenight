@@ -1,16 +1,18 @@
 body {
-  font-family: $helvetica;
+  font-family: $font-stack-helvetica;
   background-color: #E2E2E2;
   color: #555;
 }
 
-.search {
+input.search {
   float: right;
-  margin-right: 50px;
+  margin-right: 45px;
+  width: 300px;
+  margin-top: -5px;
 }
 
-.group-search, .user-search {
-  float: right;
+input.group-search, input.user-search {
+  margin-right: 0px;
 }
 
 a.member {
@@ -240,17 +242,19 @@ header.title {
 }
 
 header.top-level-title {
-  border-bottom: 1px solid #EEE;
-  position: relative;
-  height: 47px;
-  background: #666;
+  margin-top: 10px;
   text-align: center;
-  color: #EEE;
+  color: #666;
 }
 
 
 header {
-  h1 { display: inline; margin-right: 10px; padding: 0; margin: 0;}
+  h1 {
+    display: inline;
+    margin-right: 10px;
+    padding: 0;
+    margin: 0;
+  }
   nav {
     ul {
       margin: 0;

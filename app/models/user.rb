@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :groups, through: :group_memberships
   has_many :locations, through: :groups
 
+  validates :name, presence: true
   validates :email, presence: true, uniqueness: true
   validates :password_digest, presence: true, if: :active?
 

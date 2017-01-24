@@ -19,7 +19,7 @@
 
     <div>
       <%= form.label :name %>
-      <%= form.email_field :name %>
+      <%= form.text_field :name %>
     </div>
     <div>
       <%= form.label :email %>
@@ -29,6 +29,13 @@
       <%= form.label :password %>
       <%= form.password_field :password %>
     </div>
+    <div>
+      <%= form.label :time_zone %>
+      <%= form.time_zone_select :time_zone %>
+    </div>
+    <script type="text/javascript">
+      $("#user_time_zone").set_timezone({ format: "city" });
+    </script>
     <div>
       <%= form.submit "Sign up" %>
     </div>
