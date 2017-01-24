@@ -7,9 +7,9 @@
   <% if @games.any? %>
     <ul class="games list">
       <% @games.each do |game| %>
-        <%= content_tag_for(:li, game, class: 'box box-grid', data: { title: game.title.downcase }) do %>
+        <li class="game box box-grid" data-title="<%= game.title.downcase %>">
           <%= render game %>
-        <% end %>
+        </li>
       <% end %>
     </ul>
   <% else %>

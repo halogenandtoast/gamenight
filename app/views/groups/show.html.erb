@@ -39,9 +39,9 @@
           <strong>Add a location by clicking the plus in the upper right hand corner of this box.</strong>
         <% end %>
         <% @group.locations.each do |location| %>
-          <%= div_for location do %>
+          <div class="location">
             <%= link_to location.title, location %>
-          <% end %>
+          </div>
         <% end %>
       </div>
     </section>
@@ -55,7 +55,7 @@
 
       <div class="voted-games">
         <% @voted_games.each do |game| %>
-          <%= div_for(game, class: 'box box-grid') do %>
+          <div class="game box box-grid">
             <% cache(game) do %>
               <%= render game %>
             <% end %>
@@ -71,7 +71,7 @@
                 <%= vote_link(@group, game) %>
               <% end %>
             </aside>
-          <% end %>
+          </div>
         <% end %>
       </div>
     </section>
@@ -80,14 +80,14 @@
   <section class="column-section">
     <header class="title">
       <h1>Group Games</h1>
-      <input class="group-search" placeholder="Filter games" />
+      <input class="search group-search" placeholder="Filter games" />
     </header>
 
     <% if @boxes.any? %>
       <ul class="games list">
         <% @boxes.each do |box| %>
           <% box.game.tap do |game| %>
-            <%= content_tag_for(:li, game, class: 'box box-grid', data: { title: game.title.downcase }) do %>
+            <li class="game box box-grid" data-title="<%= game.title.downcase %>">
               <%= render game %>
 
               <aside>
@@ -96,7 +96,7 @@
                 <% end %>
                 <div class='owner'>Owned by <%= link_to box.owner.name, box.owner %></div>
               </aside>
-            <% end %>
+            </div>
           <% end %>
         <% end %>
       </ul>

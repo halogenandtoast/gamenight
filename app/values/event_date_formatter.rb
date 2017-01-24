@@ -11,9 +11,9 @@ class EventDateFormatter
   attr_reader :group
 
   def date_string
-    if group.next_date.to_date == Time.zone.today
+    if group.next_date.to_date == group.time_zone.today
       "today"
-    elsif group.next_date.to_date == Time.zone.today + 1
+    elsif group.next_date.to_date == group.time_zone.today + 1
       "tomorrow"
     else
       group.next_date.strftime("%B %d")

@@ -8,10 +8,10 @@
 
       <div id="groups">
         <% current_user.groups.each do |group| %>
-          <%= div_for(group) do %>
+          <div class="group">
             <%= link_to group.title, group, class: 'group-link' %>
             <%= link_to "Leave group", [:leave, group], method: :delete, data: { confirm: "Are you sure you want to leave #{group.title}" }, class: 'group-leave-link' %>
-          <% end %>
+          </div>
         <% end %>
       </div>
     </section>
@@ -27,7 +27,7 @@
     <ul class="games list">
       <% if @boxes.any? %>
         <% @boxes.each do |box| %>
-          <%= content_tag_for(:li, box, data: { title: box.title.downcase }) do %>
+          <li class="box" data-title="<%= box.title.downcase %>">
             <% cache(box.game) do %>
               <%= render box.game %>
             <% end %>
@@ -38,7 +38,7 @@
               <% end %>
               <%= link_to "Remove", box, method: :delete, class: "remove", data: { confirm: "Are you sure?" } %>
             </aside>
-          <% end %>
+          </li>
         <% end %>
       <% else %>
         No games yet. You can import your collection by using your BGG username. <strong>This will take some time.</strong>
