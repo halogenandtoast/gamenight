@@ -11,7 +11,7 @@ class GroupsController < ApplicationController
   def show
     @group = current_user.groups.find(params[:id])
     @voted_games = @group.voted_games
-    @boxes = @group.available_boxes.alphabetical
+    @boxes = @group.available_boxes.alphabetical.includes(:owner)
   end
 
   private
